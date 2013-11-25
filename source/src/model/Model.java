@@ -5,9 +5,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.LinkedList;
 
-import framework.INotifyable;
-
 import strategies.IImageAnalyzer;
+import framework.INotifyable;
 
 
 
@@ -24,7 +23,7 @@ public class Model implements PropertyChangeListener{
 	
 	
 	
-	private LinkedList<INotifyable> listeners = new LinkedList<>();
+	private LinkedList<INotifyable> listeners = new LinkedList<INotifyable>();
 	
 
 	
