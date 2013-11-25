@@ -1,9 +1,15 @@
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.ArrayList;
 import java.awt.*;
 
 public class Context {
+	
+	private File image;
+	private ArrayList<BufferedImage> imageBlocks = new ArrayList();
+	final int LINECOUNT = 6;
+	final int COLCOUNT = 16;
 	
 	    public static void main(String[] args) throws IOException {
 
@@ -39,5 +45,9 @@ public class Context {
 	        System.out.println("Mini images created");
 	    }
 
+	    public boolean imageDivider(File image) {
+	    	
+	    	return true;
+	    }
 
 }
