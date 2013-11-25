@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Insets;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
@@ -19,7 +20,7 @@ public class DrumPadButton extends JButton{
 			setSize(bg.getWidth(), bg.getHeight());
 			ImageIcon bgicon = new ImageIcon(bg);
 			setIcon(bgicon);	
-			
+			setMargin(new Insets(0, 0, 0, 0));
 		}
 
 		
