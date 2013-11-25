@@ -4,6 +4,9 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
+import model.Context;
+
+
 
 public class Main {
 
@@ -42,6 +45,12 @@ public class Main {
 		frame.setBounds(100, 100, 550, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
+		
+		
+		Context model = new Context();
+		DrumPad drumPad = new DrumPad(model);
+		
+		frame.add(drumPad);
 		
 		// TEST
 		
