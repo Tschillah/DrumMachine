@@ -30,7 +30,7 @@ public class SampleRow extends JPanel{
 		
 		
 		for(int i=0; i<count; i++){
-			DrumPadButton btn = new DrumPadButton(1, i, context.getButtonState(i, rowNumber), context.getImagePart(i, rowNumber));
+			DrumPadButton btn = new DrumPadButton(1, i, context.getImagePart(i, rowNumber));
 			
 			btn.addActionListener(new ActionListener() {
 				

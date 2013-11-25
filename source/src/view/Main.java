@@ -52,15 +52,15 @@ public class Main {
 	private void initialize() throws IOException {
 		frame = new JFrame();
 		frame.setTitle("ecp - Drum Machine");
-		frame.setBounds(100, 100, 800, 600);
+		frame.setBounds(100, 0, 1000, 680);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 		
 		
 		Model model = new Model();
-		DrumPad drumPad = new DrumPad(model);
+		DrumPad drumPad = new DrumPad();
 		
-		frame.add(drumPad);
+		frame.add(drumPad, BorderLayout.WEST);
 		
 		
 		FilterSelection filterSelection = new FilterSelection();

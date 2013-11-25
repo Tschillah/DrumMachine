@@ -42,8 +42,12 @@ public class Model implements PropertyChangeListener{
 
 	public Model(){
 		try {
-			image = ImageIO.read(new File("res/flower.jpg"));
+			image = ImageIO.read(new File("res/farben.jpg"));
+		//	image = ImageIO.read(new File("res/hongkong.jpg"));
+
 			imageAnalyzer = new ColorAnalyzer(Color.RED);
+
+		//	imageAnalyzer = new GrayScaleAnalyzer();
 			divideImage();
 			analyzeImage();
 		} catch (IOException e) {
@@ -80,6 +84,10 @@ public class Model implements PropertyChangeListener{
 
 	}
 	
+	public void toggleButton(int x, int y){
+		buttonStates[x][y] = !buttonStates[x][y];
+		notifyListeners();
+	}
 	
 	/*
 	 * Analayzed all image parts with the analyzer which is currently set.
@@ -123,6 +131,8 @@ public class Model implements PropertyChangeListener{
 	 */
 	public void setFilter(IImageAnalyzer analyzer){
 		this.imageAnalyzer = analyzer;
+		
+		analyzeImage();
 		notifyListeners();
 	}
 
@@ -132,6 +142,7 @@ public class Model implements PropertyChangeListener{
 
 		matrix = new int[loopLength][sampleCount];
 	}
+	
 
 
 	//defining the listener-methods

@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import model.Model;
 import strategies.ColorAnalyzer;
 import strategies.GrayScaleAnalyzer;
+import strategies.NullAnalyzer;
 
 
 public class FilterSelection extends JPanel{
@@ -21,11 +22,32 @@ public class FilterSelection extends JPanel{
 	Model model = Model.getInstance();
 	
 	// Filters
+	JButton btnNone;
+	JButton btnAll;
 	JButton btnFilterRedColorAnalyzer;
+	JButton btnFilterGreenColorAnalyzer;
+	JButton btnFilterBlueColorAnalyzer;
 	JButton btnFilterGrayScaleAnalyzer;
 	
 	public FilterSelection(){
 		
+		btnNone = new JButton("None");
+		btnNone.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				model.setFilter(new NullAnalyzer(true));				
+			}
+		});
+		
+		btnAll = new JButton("All");
+		btnAll.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				model.setFilter(new NullAnalyzer(false));				
+			}
+		});
 		
 		
 		btnFilterRedColorAnalyzer = new JButton("Red");
@@ -36,6 +58,24 @@ public class FilterSelection extends JPanel{
 				model.setFilter(new ColorAnalyzer(Color.RED));				
 			}
 		});
+		
+		btnFilterGreenColorAnalyzer = new JButton("Green");
+		btnFilterGreenColorAnalyzer.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				model.setFilter(new ColorAnalyzer(Color.GREEN));				
+			}
+		});
+		
+		btnFilterBlueColorAnalyzer = new JButton("Blue");
+		btnFilterBlueColorAnalyzer.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				model.setFilter(new ColorAnalyzer(Color.BLUE));	
+			}
+		});
 	
 		
 		
@@ -44,13 +84,18 @@ public class FilterSelection extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				model.setFilter(new GrayScaleAnalyzer());				
+				model.setFilter(new GrayScaleAnalyzer());	
 			}
 		});
 		
+		this.add(btnNone);
+		this.add(btnAll);
 		this.add(btnFilterRedColorAnalyzer);
+		this.add(btnFilterGreenColorAnalyzer);
+		this.add(btnFilterBlueColorAnalyzer);
 		this.add(btnFilterGrayScaleAnalyzer);
 		
 	}
+	
 
 }
