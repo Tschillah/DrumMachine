@@ -7,12 +7,16 @@ public class ColorAnalyzer implements IImageAnalyzer{
 
 	Color color;
 	
+	public ColorAnalyzer(){
+		this.color = Color.BLACK;
+	}
+	
 	public ColorAnalyzer(Color c){
 		this.color = c;
 	}
 
 	@Override
-	public boolean Analyze(BufferedImage imgpart) {
+	public boolean analyze(BufferedImage imgpart) {
 		
 		
 		// TODO Auto-generated method stub

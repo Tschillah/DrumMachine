@@ -9,6 +9,6 @@ import java.awt.image.BufferedImage;
  */
 public interface IImageAnalyzer {
 	
-	boolean Analyze(BufferedImage imgpart);
+	boolean analyze(BufferedImage imgpart);
 	
 }

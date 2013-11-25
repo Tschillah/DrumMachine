@@ -1,4 +1,8 @@
 import javax.imageio.ImageIO;
+
+import strategies.ColorAnalyzer;
+import strategies.IImageAnalyzer;
+
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
@@ -6,55 +10,53 @@ import java.awt.*;
 
 public class Context {
 	
-	private BufferedImage image;
-	private ArrayList<BufferedImage> imageBlocks = new ArrayList();
 	final int LINECOUNT = 6;
 	final int COLCOUNT = 16;
-	int chunks = LINECOUNT * COLCOUNT;
+	final int BLOCKCOUNT = LINECOUNT * COLCOUNT;
+	private BufferedImage image;
+	private BufferedImage imageBlocks[][] = new BufferedImage[COLCOUNT][LINECOUNT];
+	private boolean buttonStates[][] = new boolean[COLCOUNT][LINECOUNT];
 	
 	public Context(BufferedImage image) {
 		this.image = image;
 	}
 	
 	    public static void main(String[] args) throws IOException {
-
-	        File file = new File("res/hongkong.jpg");
-	        FileInputStream fis = new FileInputStream(file);
-	        BufferedImage image = ImageIO.read(fis); //reading the image file
+	    	BufferedImage image = ImageIO.read(new File("res/hongkong.jpg"));
 	        
 	        Context c = new Context(image);
-
-	        int rows = 4; //You should decide the values for rows and cols variables
-	        int cols = 4;
-	        int chunks = rows * cols;
-
-	        int chunkWidth = image.getWidth() / cols; // determines the chunk width and height
-	        int chunkHeight = image.getHeight() / rows;
-	        int count = 0;
-	        BufferedImage imgs[] = new BufferedImage[chunks]; //Image array to hold image chunks
-	        for (int x = 0; x < rows; x++) {
-	            for (int y = 0; y < cols; y++) {
-	                //Initialize the image array with image chunks
-	                imgs[count] = new BufferedImage(chunkWidth, chunkHeight, image.getType());
-
-	                // draws the image chunk
-	                Graphics2D gr = imgs[count++].createGraphics();
-	                gr.drawImage(image, 0, 0, chunkWidth, chunkHeight, chunkWidth * y, chunkHeight * x, chunkWidth * y + chunkWidth, chunkHeight * x + chunkHeight, null);
-	                gr.dispose();
+	        c.imageDivider(image);
+	        
+	        System.out.println(image);
+	        
+	        // send image blocks to analyzer
+	        for (int x = 0; x < c.COLCOUNT; x++) {
+	            for (int y = 0; y < c.LINECOUNT; y++) {
+	            	IImageAnalyzer ia = new ColorAnalyzer();
+	            	c.buttonStates[x][y] = ia.analyze(c.imageBlocks[x][y]);
+	            	System.out.println("x: " + x + ", y: " + y + " - " + c.imageBlocks[x][y]);
 	            }
 	        }
-	        System.out.println("Splitting done");
-
-	        //writing mini images into image files
-	        for (int i = 0; i < imgs.length; i++) {
-	            ImageIO.write(imgs[i], "jpg", new File("img" + i + ".jpg"));
-	        }
-	        System.out.println("Mini images created");
 	    }
 
-	    public boolean imageDivider(File image) {
-	    	
-	    	return true;
+	    /**
+	     * Divides image into 16*6 blocks
+	     * @param image
+	     */
+	    public void imageDivider(BufferedImage image) {
+	    	for (int x = 0; x < COLCOUNT; x++) {
+	            for (int y = 0; y < LINECOUNT; y++) {
+	            	imageBlocks[x][y] = new BufferedImage(getBlockWidth(), getBlockHeight(), image.getType());
+	            }
+	        }
+	    }
+	    
+	    public int getBlockWidth(){
+	    	return image.getWidth() / COLCOUNT;
+	    }
+	    
+	    public int getBlockHeight(){
+	    	return image.getHeight() / LINECOUNT;
 	    }
 
 }
