@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -8,7 +7,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import model.Model;
-import strategies.ColorAnalyzer;
 
 
 public class FilterSelection extends JPanel{
@@ -17,7 +15,7 @@ public class FilterSelection extends JPanel{
 	 * GUI part for selecitng the filterFilterSelectionFilterSelection
 	 */
 	
-	Model context = Model.getInstance();
+	Model model = Model.getInstance();
 	
 	// Filters
 	JButton btnFilterRedColorAnalyzer;
@@ -30,7 +28,7 @@ public class FilterSelection extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				model.setFilter(new ColorAnalyzer(Color.RED));				
+		//		model.setFilter(new ColorAnalyzer(Color.RED));				
 			}
 		});
 		
