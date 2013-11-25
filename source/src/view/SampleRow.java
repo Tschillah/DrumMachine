@@ -9,14 +9,14 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 
-import model.Context;
+import model.Model;
 
 
 public class SampleRow extends JPanel{
 
 	//private final int count = 16;
 	
-	Context context = Context.getInstance();
+	Model context = Model.getInstance();
 	private int[] sampleLine;
 	
 	

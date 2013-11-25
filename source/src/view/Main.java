@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
-import model.Context;
+import model.Model;
 
 
 
@@ -47,7 +47,7 @@ public class Main {
 		frame.setLayout(new BorderLayout());
 		
 		
-		Context model = new Context();
+		Model model = new Model();
 		DrumPad drumPad = new DrumPad(model);
 		
 		frame.add(drumPad);

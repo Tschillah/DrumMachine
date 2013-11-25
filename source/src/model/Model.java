@@ -9,11 +9,11 @@ import strategies.IImageAnalyzer;
 
 
 
-public class Context implements PropertyChangeListener{
+public class Model implements PropertyChangeListener{
 	
 
 	PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
-	private static Context instance = null;
+	private static Model instance = null;
 	
 	private int[][] matrix;
 	private int sampleCount;
@@ -53,9 +53,9 @@ public class Context implements PropertyChangeListener{
 	}
 	
 	//method which preserves access to this class
-	public static Context getInstance(){
+	public static Model getInstance(){
 		if(instance == null){
-			instance = new Context();
+			instance = new Model();
 		}
 		return instance;
 	}
