@@ -1,13 +1,10 @@
 package view;
 
-import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JPanel;
-
 
 import model.Model;
 
@@ -23,13 +20,17 @@ public class SampleRow extends JPanel{
 	/*
 	 * A single row of drumpads for a specific sample
 	 */
-	public SampleRow(int count){
+	public SampleRow(int count, int rowNumber){
+		
+		
 		
 		sampleLine = new int[count];
-		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		this.setLayout(new GridLayout(1, count));
+		
+		
 		
 		for(int i=0; i<count; i++){
-			JButton btn = new JButton("" + i);
+			DrumPadButton btn = new DrumPadButton(1, i, context.getButtonState(i, rowNumber), context.getImagePart(i, rowNumber));
 			
 			btn.addActionListener(new ActionListener() {
 				

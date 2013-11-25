@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.FileDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -38,15 +39,17 @@ public class Main {
 
 	/**
 	 * Create the application.
+	 * @throws IOException 
 	 */
-	public Main() {
+	public Main() throws IOException {
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws IOException 
 	 */
-	private void initialize() {
+	private void initialize() throws IOException {
 		frame = new JFrame();
 		frame.setTitle("ecp - Drum Machine");
 		frame.setBounds(100, 100, 800, 600);

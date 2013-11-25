@@ -1,12 +1,11 @@
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 import javax.imageio.ImageIO;
 
 import strategies.ColorAnalyzer;
 import strategies.IImageAnalyzer;
-
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.util.ArrayList;
-import java.awt.*;
 
 public class Context {
 	
@@ -57,6 +56,10 @@ public class Context {
 	    
 	    public int getBlockHeight(){
 	    	return image.getHeight() / LINECOUNT;
+	    }
+	    
+	    public BufferedImage getImagePart(int x, int y){
+	    	return imageBlocks[x][y];
 	    }
 
 }
