@@ -6,16 +6,23 @@ import java.awt.*;
 
 public class Context {
 	
-	private File image;
+	private BufferedImage image;
 	private ArrayList<BufferedImage> imageBlocks = new ArrayList();
 	final int LINECOUNT = 6;
 	final int COLCOUNT = 16;
+	int chunks = LINECOUNT * COLCOUNT;
+	
+	public Context(BufferedImage image) {
+		this.image = image;
+	}
 	
 	    public static void main(String[] args) throws IOException {
 
-	        File file = new File("bear.jpg"); // I have bear.jpg in my working directory
+	        File file = new File("res/hongkong.jpg");
 	        FileInputStream fis = new FileInputStream(file);
 	        BufferedImage image = ImageIO.read(fis); //reading the image file
+	        
+	        Context c = new Context(image);
 
 	        int rows = 4; //You should decide the values for rows and cols variables
 	        int cols = 4;
