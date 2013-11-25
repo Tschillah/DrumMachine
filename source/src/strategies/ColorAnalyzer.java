@@ -13,7 +13,10 @@ public class ColorAnalyzer implements IImageAnalyzer{
 
 	@Override
 	public boolean Analyze(BufferedImage imgpart) {
+		
+		
 		// TODO Auto-generated method stub
 		return false;
+		
 	}
 }
