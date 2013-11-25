@@ -5,6 +5,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.LinkedList;
 
+import framework.INotifyable;
+
 import strategies.IImageAnalyzer;
 
 
@@ -21,14 +23,20 @@ public class Model implements PropertyChangeListener{
 	private IImageAnalyzer imageAnalyzer;
 	
 	
-	/*
-	private LinkedList<ModelListener> listeners = new LinkedList<>();
 	
-	public void addModelChangeListener(ModelListener listener) {
-		listeners.add(listener);
+	private LinkedList<INotifyable> listeners = new LinkedList<>();
+	
+
+	
+	
+	/**
+	 * Sets the current ImageAnalyzer
+	 * @param analyzer
+	 */
+	public void setFilter(IImageAnalyzer analyzer){
+		this.imageAnalyzer = analyzer;
+		notifyListeners();
 	}
-	
-	*/
 	
 	public void setMatrix(int sampleCount, int loopLength){
 		this.sampleCount = sampleCount;
@@ -58,6 +66,16 @@ public class Model implements PropertyChangeListener{
 			instance = new Model();
 		}
 		return instance;
+	}
+	
+	public void addModelChangeListener(INotifyable listener) {
+		listeners.add(listener);
+	}
+	
+	public void notifyListeners(){
+		for (INotifyable listener : listeners) {
+			listener.update();
+		}
 	}
 	
 	

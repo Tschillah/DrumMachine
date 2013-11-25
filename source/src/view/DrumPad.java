@@ -2,6 +2,8 @@ package view;
 
 import javax.swing.JPanel;
 
+import framework.INotifyable;
+
 import model.Model;
 
 
@@ -20,5 +22,6 @@ public class DrumPad extends JPanel{
 		this.add(new SampleRow(16));
 		
 	}
+
 
 }
