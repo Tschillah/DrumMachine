@@ -8,9 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import model.Model;
-import strategies.ColorAnalyzer;
-import strategies.GrayScaleAnalyzer;
-import strategies.NullAnalyzer;
+import strategies.*;
 
 
 public class FilterSelection extends JPanel{
@@ -27,6 +25,7 @@ public class FilterSelection extends JPanel{
 	JButton btnFilterRedColorAnalyzer;
 	JButton btnFilterGreenColorAnalyzer;
 	JButton btnFilterBlueColorAnalyzer;
+	JButton btnFilterRandomAnalyzer;
 	JButton btnFilterGrayScaleAnalyzer;
 	
 	public FilterSelection(){
@@ -78,6 +77,15 @@ public class FilterSelection extends JPanel{
 		});
 	
 		
+		btnFilterRandomAnalyzer = new JButton("Random");
+		btnFilterRandomAnalyzer.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				model.setFilter(new RandomAnalyzer());	
+			}
+		});		
+		
 		
 		btnFilterGrayScaleAnalyzer = new JButton("Grayscale");
 		btnFilterGrayScaleAnalyzer.addActionListener(new ActionListener() {
@@ -93,6 +101,7 @@ public class FilterSelection extends JPanel{
 		this.add(btnFilterRedColorAnalyzer);
 		this.add(btnFilterGreenColorAnalyzer);
 		this.add(btnFilterBlueColorAnalyzer);
+		this.add(btnFilterRandomAnalyzer);
 		this.add(btnFilterGrayScaleAnalyzer);
 		
 	}

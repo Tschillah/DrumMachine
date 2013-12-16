@@ -6,5 +6,6 @@ public enum FilterType {
 	Blue,
 	All,
 	None,
+	Random,
 	Greyscale
 }
