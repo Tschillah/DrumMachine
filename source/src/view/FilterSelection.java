@@ -27,6 +27,7 @@ public class FilterSelection extends JPanel{
 	JButton btnFilterBlueColorAnalyzer;
 	JButton btnFilterRandomAnalyzer;
 	JButton btnFilterGrayScaleAnalyzer;
+	JButton btnFilterYUVAnalyzer;
 	
 	public FilterSelection(){
 		
@@ -96,6 +97,17 @@ public class FilterSelection extends JPanel{
 			}
 		});
 		
+		
+		btnFilterYUVAnalyzer = new JButton("YUV");
+		btnFilterYUVAnalyzer.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				model.setFilter(new YUVAnalyzer());	
+			}
+		});
+		
+		
 		this.add(btnNone);
 		this.add(btnAll);
 		this.add(btnFilterRedColorAnalyzer);
@@ -103,6 +115,7 @@ public class FilterSelection extends JPanel{
 		this.add(btnFilterBlueColorAnalyzer);
 		this.add(btnFilterRandomAnalyzer);
 		this.add(btnFilterGrayScaleAnalyzer);
+		this.add(btnFilterYUVAnalyzer);
 		
 	}
 	

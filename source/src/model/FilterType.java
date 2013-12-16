@@ -7,5 +7,6 @@ public enum FilterType {
 	All,
 	None,
 	Random,
-	Greyscale
+	Greyscale,
+	YUV
 }
