@@ -19,7 +19,7 @@ public class FilterButton extends JButton implements INotifyable{
 	@Override
 	public void update() {
 		
-		this.setEnabled(model.isFilterActive("red"));
+		//this.setEnabled(model.isFilterActive("red"));
 
 	}
 	

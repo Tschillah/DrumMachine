@@ -176,6 +176,11 @@ public class Model implements PropertyChangeListener{
 			listener.update();
 		}
 	}
+	
+	
+	public boolean isFilterActive(){
+		return true;
+	}
 
 
 
