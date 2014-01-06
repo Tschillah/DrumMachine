@@ -10,7 +10,9 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import model.Model;
 import framework.INotifyable;
@@ -86,7 +88,9 @@ public class DrumPadButton extends JButton implements INotifyable{
 	}
 	
 	
-	
+	public void setBorderColor(Color c){
+		setBorder(new LineBorder(c));
+	}
 	
 
 
