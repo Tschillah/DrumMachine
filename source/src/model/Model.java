@@ -38,7 +38,7 @@ public class Model {
 
 		sou = new SoundManager();
 
-		tactMachine = new TactMachine(COLCOUNT);
+		tactMachine = new TactMachine(this);
 		thread = new Thread(tactMachine);
 
 		try {

@@ -11,13 +11,9 @@ import model.Model;
 
 public class DrumPad extends JPanel {
 
-
 	Model context = Model.getInstance();
 	int linecount = context.getLineCount();
 	int colcount = context.getColumnCount();
-	
-	//DrumPadButton dpb[][] = new DrumPadButton[colcount][linecount];
-	
 
 
 	/*
@@ -44,6 +40,10 @@ public class DrumPad extends JPanel {
 		}
 	}
 	
+	/*
+	 * Method to highlight column of currently played buttons
+	 * @author Caroline, Marlene
+	 */
 	public void highlightActiveButtons(int col){
 		int colOld = 0;
 		
@@ -62,9 +62,12 @@ public class DrumPad extends JPanel {
 			context.getButton(col,y).setBorderColor(Color.BLACK);
 		}
 	}
+<<<<<<< HEAD
 
 	
 	
 
+=======
+>>>>>>> fb467978b3371f890736b6c7bd3591fdc46bc191
 
 }
