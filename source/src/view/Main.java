@@ -1,11 +1,12 @@
 package view;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.FileDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -57,7 +58,7 @@ public class Main {
 		frame.setLayout(new BorderLayout());
 		
 		
-		Model model = new Model();
+		final Model model = new Model();
 		DrumPad drumPad = new DrumPad();
 		
 		frame.add(drumPad, BorderLayout.WEST);
@@ -66,15 +67,28 @@ public class Main {
 		FilterSelection filterSelection = new FilterSelection();
 		frame.add(filterSelection, BorderLayout.NORTH);
 		
-		final FileDialog fileChooser = new FileDialog(frame);
+		final JFileChooser fileChooser = new JFileChooser();
 		
 		JButton openFileChooser = new JButton("Select Image");
 		openFileChooser.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				fileChooser.show();
 				
+				fileChooser.showOpenDialog(frame);
+				
+				String filename = fileChooser.getSelectedFile().getAbsolutePath();
+				
+				if (filename != null){
+					
+					try {
+						model.setImage(ImageIO.read(new File(filename)));
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+				}
 			}
 		});
 	      		

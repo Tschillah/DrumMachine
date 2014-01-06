@@ -69,6 +69,14 @@ public class DrumPadButton extends JButton implements INotifyable{
 			g.fillRect(0, 0, clipRectangle.width,clipRectangle.height);
 		} 
 	}
+	
+	
+	public void setBackground(BufferedImage bg){
+		bgEnabled = bg;
+		ImageIcon bgicon = new ImageIcon(bg);
+		setIcon(bgicon);
+		repaint();
+	}
 
 	@Override
 	public void update() {
