@@ -209,6 +209,14 @@ public class Model implements PropertyChangeListener {
 		}
 		return instance;
 	}
+	
+	public int getLineCount(){
+		return LINECOUNT;
+		}
+		public int getColumnCount(){
+		return COLCOUNT;
+		}
+
 
 	public void addModelChangeListener(INotifyable listener) {
 		listeners.add(listener);
