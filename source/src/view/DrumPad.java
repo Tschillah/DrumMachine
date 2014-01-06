@@ -62,15 +62,5 @@ public class DrumPad extends JPanel {
 			context.getButton(col,y).setBorderColor(Color.BLACK);
 		}
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-	
-	
-
-=======
->>>>>>> fb467978b3371f890736b6c7bd3591fdc46bc191
-=======
->>>>>>> fb467978b3371f890736b6c7bd3591fdc46bc191
 
 }
