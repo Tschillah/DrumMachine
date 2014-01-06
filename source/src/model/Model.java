@@ -15,6 +15,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import strategies.ColorAnalyzer;
 import strategies.IImageAnalyzer;
+import view.DrumPadButton;
 import framework.INotifyable;
 
 public class Model implements PropertyChangeListener {
@@ -33,6 +34,8 @@ public class Model implements PropertyChangeListener {
 	private BufferedImage image;
 	private BufferedImage imageBlocks[][] = new BufferedImage[COLCOUNT][LINECOUNT];
 	private boolean buttonStates[][] = new boolean[COLCOUNT][LINECOUNT];
+	private DrumPadButton buttons[][] = new DrumPadButton[COLCOUNT][LINECOUNT];
+	
 	private String[] sampleLines = { "clave.wav", "perc7.wav", "perc3.wav",
 			"snare1.wav", "snare2.wav", "snare3.wav" };
 
@@ -93,6 +96,12 @@ public class Model implements PropertyChangeListener {
 		this.image = img;
 		divideImage();
 		analyzeImage();
+		
+		for (int x = 0; x < COLCOUNT; x++) {
+			for (int y = 0; y < LINECOUNT; y++) {
+				buttons[x][y].setBackground(imageBlocks[x][y]);
+			}
+		}
 	}
 
 	/*
@@ -149,6 +158,14 @@ public class Model implements PropertyChangeListener {
 
 	public boolean getButtonState(int x, int y) {
 		return buttonStates[x][y];
+	}
+	
+	public DrumPadButton getButton(int x, int y) {
+		return buttons[x][y];
+	}
+	
+	public void setButton(int x, int y, DrumPadButton button) {
+		buttons[x][y] = button;
 	}
 
 	/**
