@@ -39,9 +39,15 @@ public class Model implements PropertyChangeListener {
 	private LinkedList<INotifyable> listeners = new LinkedList<INotifyable>();
 	private SoundManager sou;
 
+	private TactMachine tactMachine = null;
+	private Thread thread = null;
+
 	public Model() {
 
 		sou = new SoundManager();
+
+		tactMachine = new TactMachine(COLCOUNT);
+		thread = new Thread(tactMachine);
 
 		try {
 			image = ImageIO.read(new File("res/farben.jpg"));
@@ -57,6 +63,27 @@ public class Model implements PropertyChangeListener {
 			e.printStackTrace();
 		}
 
+	}
+
+	public void startTactMachine() {
+		thread.start();
+	}
+
+	public void stopTactMachine() {
+		if (thread != null) {
+			tactMachine.terminate();
+
+			try {
+				thread.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public int getColCount() {
+		return COLCOUNT;
 	}
 
 	/*

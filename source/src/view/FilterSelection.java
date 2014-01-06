@@ -24,6 +24,7 @@ public class FilterSelection extends JPanel {
 
 	// Filters
 	JButton btnPlay;
+	JButton btnStop;
 	JButton btnNone;
 	JButton btnAll;
 	JButton btnFilterRedColorAnalyzer;
@@ -40,8 +41,18 @@ public class FilterSelection extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				model.buildSound(0);
+				// model.buildSound(0);
+				model.startTactMachine();
+			}
+		});
 
+		btnStop = new JButton("Stop");
+		btnStop.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// model.buildSound(0);
+				model.stopTactMachine();
 			}
 		});
 
@@ -118,6 +129,7 @@ public class FilterSelection extends JPanel {
 		});
 
 		this.add(btnPlay);
+		this.add(btnStop);
 		this.add(btnNone);
 		this.add(btnAll);
 		this.add(btnFilterRedColorAnalyzer);
@@ -128,5 +140,4 @@ public class FilterSelection extends JPanel {
 		this.add(btnFilterYUVAnalyzer);
 
 	}
-
 }
