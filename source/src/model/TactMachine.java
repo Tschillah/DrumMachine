@@ -3,12 +3,12 @@ package model;
 public class TactMachine implements Runnable {
 
 	private int currentColumn;
-	private int colCount;
+	private Model model;
 
 	private volatile boolean running = true;
 
-	public TactMachine(int colCount) {
-		this.colCount = colCount;
+	public TactMachine(Model model) {
+		this.model = model;
 	}
 
 	public void terminate() {
@@ -17,11 +17,16 @@ public class TactMachine implements Runnable {
 
 	public void run() {
 		int i = 0;
+		int col = 0;
+
 		while (running) {
-			System.out.println(i % colCount);
+			System.out.println("current Collumn: " + col);
+			model.buildSound(col);
+			currentColumn = col;
 			i++;
+			col = i % model.getColCount();
 			try {
-				Thread.sleep((long) 1000);
+				Thread.sleep((long) 200);
 			} catch (InterruptedException e) {
 				running = false;
 			}
