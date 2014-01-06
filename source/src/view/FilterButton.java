@@ -11,10 +11,11 @@ public class FilterButton extends JButton implements INotifyable{
 	
 	Model model = Model.getInstance();
 	
+	/*
 	public FilterButton(){
 		model.addModelChangeListener(this);
 	}
-	
+	*/
 
 	@Override
 	public void update() {

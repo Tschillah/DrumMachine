@@ -2,9 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.Rectangle;
 
 import javax.swing.JPanel;
 
@@ -33,18 +31,14 @@ public class DrumPad extends JPanel {
 		this.setPreferredSize(new Dimension(830, 600));
 		//this.setLayout(null);
 
+		
 		init();
 	}
 	
 	public void init(){
 		for(int y=0; y<linecount; y++){
-
 			for(int x=0; x<colcount; x++){
-				DrumPadButton btn = new DrumPadButton(x, y, context.getImagePart(x, y));
-			//	btn.setEnabled(false);
-				context.setButton(x,y,btn);
-				
-				this.add(btn).setLocation(x, y);
+				this.add(context.getButton(x, y)).setLocation(x, y);
 				
 			}
 		}
@@ -68,6 +62,7 @@ public class DrumPad extends JPanel {
 			context.getButton(col,y).setBorderColor(Color.BLACK);
 		}
 	}
+
 	
 	
 

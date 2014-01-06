@@ -10,30 +10,22 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import model.Model;
-import framework.INotifyable;
+import strategies.IImageAnalyzer;
 
-public class DrumPadButton extends JButton implements INotifyable{
+public class DrumPadButton extends JButton {
 	
-	private int x;
-	private int y;
-	BufferedImage bgEnabled;
-	//BufferedImage bgDisabled;
+	boolean enabled;
+	BufferedImage bg;
 	
-	Model model = Model.getInstance();
-	
-	public DrumPadButton(int x, int y, BufferedImage bg) {
-		this.x = x;
-		this.y = y;
-		bgEnabled = bg;
+	public DrumPadButton(BufferedImage background) {
+		
+		this.enabled = false;
+		this.bg = background;
 		
 		
-		model.addModelChangeListener(this);
-
 		if (bg != null){
 			setSize(bg.getWidth(), bg.getHeight());
 			ImageIcon bgicon = new ImageIcon(bg);
@@ -58,14 +50,33 @@ public class DrumPadButton extends JButton implements INotifyable{
 	 * Toggles this button state from enabled to disabled or from disabled to enabled
 	 */
 	public void toggle() {
-		model.toggleButton(x, y);
+		this.enabled = !enabled;
+		repaint();
+	}
+	
+	public void setState(boolean state) {
+		this.enabled = state;
+		repaint();
+	}
+	
+	public boolean getState() {
+		return this.enabled;
+	}
+	
+	public void analyze(IImageAnalyzer analyzer){
+		this.enabled = analyzer.analyze(bg);
+		repaint();
+	}
+	
+	public BufferedImage getImage(){
+		return bg;
 	}
 	
 	@Override
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		
-		if(model.getButtonState(x, y)){
+		if(enabled){
 			Rectangle clipRectangle = g.getClipBounds();
 			g.setColor(new Color(190,190,190,200));
 			g.fillRect(0, 0, clipRectangle.width,clipRectangle.height);
@@ -73,23 +84,17 @@ public class DrumPadButton extends JButton implements INotifyable{
 	}
 	
 	
-	public void setBackground(BufferedImage bg){
-		bgEnabled = bg;
+	public void setBackground(BufferedImage background){
+		this.bg = background;
 		ImageIcon bgicon = new ImageIcon(bg);
-		setIcon(bgicon);
+		this.setIcon(bgicon);
 		repaint();
-	}
-
-	@Override
-	public void update() {
-		
-		repaint();		
-
 	}
 	
 	
 	public void setBorderColor(Color c){
 		setBorder(new LineBorder(c));
+		repaint();
 	}
 	
 

@@ -3,6 +3,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -58,7 +59,7 @@ public class Main {
 		frame.setLayout(new BorderLayout());
 		
 		
-		final Model model = new Model();
+		final Model model = Model.getInstance();
 		DrumPad drumPad = new DrumPad();
 		
 		frame.add(drumPad, BorderLayout.WEST);
@@ -76,19 +77,26 @@ public class Main {
 			public void actionPerformed(ActionEvent e) {
 				
 				fileChooser.showOpenDialog(frame);
-				
-				String filename = fileChooser.getSelectedFile().getAbsolutePath();
-				
-				if (filename != null){
+				if (fileChooser.getSelectedFile() != null){
+					String filename = fileChooser.getSelectedFile().getAbsolutePath();
 					
-					try {
-						model.setImage(ImageIO.read(new File(filename)));
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					if (filename != null){
+						
+						try {
+							BufferedImage newImage = ImageIO.read(new File(filename));
+							
+							newImage = newImage.getSubimage(0, 0,  800,  600);							
+							
+							model.setImage(newImage);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
 					}
-					
 				}
+				
+				
 			}
 		});
 	      		
