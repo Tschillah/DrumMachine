@@ -14,7 +14,6 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
-import model.CamManager;
 import model.Model;
 
 import org.imgscalr.Scalr;
@@ -130,7 +129,7 @@ public class Main {
 			public void actionPerformed(ActionEvent arg0) {
 
 				// Get image from webcam
-				BufferedImage camImage = CamManager.getCurrentFrame();
+				BufferedImage camImage = model.getCurrentFrame();
 
 				if (camImage.getHeight() != 600 && camImage.getWidth() != 800) {
 					camImage = Scalr.resize(camImage, 800);

@@ -1,5 +1,6 @@
 package model;
 
+
 public class TactMachine implements Runnable {
 
 	private int currentColumn;
@@ -27,6 +28,7 @@ public class TactMachine implements Runnable {
 
 		while (running) {
 			// System.out.println("current Collumn: " + col);
+
 			model.buildSound(col);
 			model.highlightActiveButtons(col);
 			currentColumn = col;

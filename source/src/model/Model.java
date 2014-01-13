@@ -1,6 +1,5 @@
 package model;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +19,7 @@ public class Model {
 	private static Model instance = null;
 
 	private IImageAnalyzer imageAnalyzer;
-	
+
 	ArrayList<INotifyable> notifyables = new ArrayList<INotifyable>();
 
 	final int LINECOUNT = 6;
@@ -28,7 +27,6 @@ public class Model {
 	final int BLOCKCOUNT = LINECOUNT * COLCOUNT;
 	private BufferedImage image;
 	private DrumPadButton buttons[][] = new DrumPadButton[COLCOUNT][LINECOUNT];
-
 
 	// private String[] sampleLines = { "clave.wav", "perc7.wav", "perc3.wav",
 	// "snare1.wav", "snare2.wav", "snare3.wav" };
@@ -38,13 +36,14 @@ public class Model {
 	// private LinkedList<INotifyable> listeners = new
 	// LinkedList<INotifyable>();
 	private SoundManager sou;
-
+	private CamManager camManager;
 	private TactMachine tactMachine = null;
 	private Thread thread = null;
 
 	public Model() {
 
 		sou = new SoundManager();
+		camManager = new CamManager();
 
 		tactMachine = new TactMachine(this);
 		thread = new Thread(tactMachine);
@@ -273,7 +272,6 @@ public class Model {
 		}
 	}
 
-
 	/*
 	 * Method to unhighlight all buttons
 	 * 
@@ -294,14 +292,18 @@ public class Model {
 	public boolean isRunning() {
 		return tactMachine.isRunning();
 	}
-	
-	public void register(INotifyable n){
+
+	public void register(INotifyable n) {
 		notifyables.add(n);
 	}
-	
-	public void update(){
-		for (INotifyable n: notifyables) {
+
+	public void update() {
+		for (INotifyable n : notifyables) {
 			n.update();
 		}
+	}
+
+	public BufferedImage getCurrentFrame() {
+		return camManager.getCurrentFrame();
 	}
 }
