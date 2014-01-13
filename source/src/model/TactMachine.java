@@ -4,7 +4,7 @@ public class TactMachine implements Runnable {
 
 	private int currentColumn;
 	private Model model;
-	private int speed = 200;
+	private int speed = 260;
 
 	private volatile boolean running = true;
 
@@ -50,8 +50,12 @@ public class TactMachine implements Runnable {
 		return currentColumn;
 	}
 
-	public void setSpeed(int miliseconds) {
-		System.out.println("Speed changed to:" + miliseconds);
+	public void setSpeed(int bpm) {
+		// System.out.println("Speed changed to:" + bpm);
+
+		int miliseconds = 60000 / bpm;
+		// System.out.println(miliseconds);
+
 		this.speed = miliseconds;
 	}
 
