@@ -1,11 +1,14 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import model.Model;
 import strategies.ColorAnalyzer;
@@ -22,9 +25,13 @@ public class FilterSelection extends JPanel {
 
 	Model model = Model.getInstance();
 
-	// Filters
+	// Controls
+	JLabel lblSpeed;
+	JTextField txtSpeed;
 	JButton btnPlay;
 	JButton btnStop;
+
+	// Filters
 	JButton btnNone;
 	JButton btnAll;
 	JButton btnFilterRedColorAnalyzer;
@@ -36,12 +43,26 @@ public class FilterSelection extends JPanel {
 
 	public FilterSelection() {
 
+		lblSpeed = new JLabel("bpm: ");
+
+		txtSpeed = new JTextField();
+		txtSpeed.setPreferredSize(new Dimension(60, 20));
+		txtSpeed.setText("200");
+
 		btnPlay = new JButton("Play");
 		btnPlay.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// model.buildSound(0);
+				int speed = 200;
+				try {
+					speed = Integer.parseInt(txtSpeed.getText());
+				} catch (NumberFormatException e1) {
+
+				}
+
+				model.setSpeed(speed);
+				model.stopTactMachine();
 				model.startTactMachine();
 			}
 		});
@@ -128,6 +149,8 @@ public class FilterSelection extends JPanel {
 			}
 		});
 
+		this.add(lblSpeed);
+		this.add(txtSpeed);
 		this.add(btnPlay);
 		this.add(btnStop);
 		this.add(btnNone);
