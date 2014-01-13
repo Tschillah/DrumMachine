@@ -9,7 +9,7 @@ public class GrayScaleAnalyzer implements IImageAnalyzer {
 	public boolean analyze(BufferedImage img) {
 		
 		int sum = 0;
-		final int TRESHOLD = 128;
+		final int TRESHOLD = 100;
 		
 		for (int w = 0; w < img.getWidth(); w++) {
 			for (int h = 0; h < img.getHeight(); h++) {
