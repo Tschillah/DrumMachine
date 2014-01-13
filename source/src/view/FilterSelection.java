@@ -116,7 +116,7 @@ public class FilterSelection extends JPanel implements INotifyable{
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				model.setFilter(new ColorAnalyzer(Color.RED, 100));
+				model.setFilter(new ColorAnalyzer(Color.RED, 128));
 				btnFilterRedColorAnalyzer.setEnabled(false);
 			}
 		});
