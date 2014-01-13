@@ -211,7 +211,8 @@ public class Model {
 
 				try {
 					sou.addClip("samples/sam2/" + sampleLines[j]);
-					System.out.println("sample: " + sampleLines[j] + " added");
+					// System.out.println("sample: " + sampleLines[j] +
+					// " added");
 					count++;
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -277,4 +278,11 @@ public class Model {
 		}
 	}
 
+	public void setSpeed(int miliseconds) {
+		tactMachine.setSpeed(miliseconds);
+	}
+
+	public boolean isRunning() {
+		return tactMachine.isRunning();
+	}
 }

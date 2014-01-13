@@ -4,6 +4,7 @@ public class TactMachine implements Runnable {
 
 	private int currentColumn;
 	private Model model;
+	private int speed = 200;
 
 	private volatile boolean running = true;
 
@@ -24,14 +25,14 @@ public class TactMachine implements Runnable {
 		int col = 0;
 
 		while (running) {
-			System.out.println("current Collumn: " + col);
+			// System.out.println("current Collumn: " + col);
 			model.buildSound(col);
 			model.highlightActiveButtons(col);
 			currentColumn = col;
 			i++;
 			col = i % model.getColCount();
 			try {
-				Thread.sleep((long) 200);
+				Thread.sleep((long) speed);
 			} catch (InterruptedException e) {
 				running = false;
 			}
@@ -46,6 +47,15 @@ public class TactMachine implements Runnable {
 
 	public int getCurrentColumn() {
 		return currentColumn;
+	}
+
+	public void setSpeed(int miliseconds) {
+		System.out.println("Speed changed to:" + miliseconds);
+		this.speed = miliseconds;
+	}
+
+	public boolean isRunning() {
+		return running;
 	}
 
 }
