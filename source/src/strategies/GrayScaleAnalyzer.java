@@ -22,6 +22,6 @@ public class GrayScaleAnalyzer implements IImageAnalyzer {
 			}
 		}
 
-		return(sum/(img.getWidth()*img.getHeight()) < TRESHOLD);
+		return !(sum/(img.getWidth()*img.getHeight()) < TRESHOLD);
 	}
 }

@@ -61,7 +61,7 @@ public class FilterSelection extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				model.setFilter(new NullAnalyzer(true));
+				model.setFilter(new NullAnalyzer(false));
 			}
 		});
 
@@ -70,7 +70,7 @@ public class FilterSelection extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				model.setFilter(new NullAnalyzer(false));
+				model.setFilter(new NullAnalyzer(true));
 			}
 		});
 
