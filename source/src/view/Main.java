@@ -14,14 +14,17 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
+import model.CamManager;
 import model.Model;
 
 import org.imgscalr.Scalr;
 
 /**
- * Main class that starts the application and instantiates the model and the view
+ * Main class that starts the application and instantiates the model and the
+ * view
+ * 
  * @author Chilla
- *
+ * 
  */
 public class Main {
 
@@ -60,7 +63,7 @@ public class Main {
 	 * @throws IOException
 	 */
 	private void initialize() throws IOException {
-		
+
 		// Instantiate frame, set title/size/closeoperation/layout
 		frame = new JFrame();
 		frame.setTitle("ecp - Drum Machine");
@@ -70,12 +73,13 @@ public class Main {
 
 		// Get the model instance
 		final Model model = Model.getInstance();
-		
+
 		// Instantiate the drum pad and add it to the frame
 		DrumPad drumPad = new DrumPad();
 		frame.add(drumPad, BorderLayout.WEST);
 
-		// Instantiate the filter selection and add the filter selection to the frame
+		// Instantiate the filter selection and add the filter selection to the
+		// frame
 		FilterSelection filterSelection = new FilterSelection();
 		frame.add(filterSelection, BorderLayout.NORTH);
 
@@ -89,20 +93,24 @@ public class Main {
 
 				fileChooser.showOpenDialog(frame);
 				if (fileChooser.getSelectedFile() != null) {
-					String filename = fileChooser.getSelectedFile().getAbsolutePath();
+					String filename = fileChooser.getSelectedFile()
+							.getAbsolutePath();
 
 					if (filename != null) {
 
 						try {
 							// Read the selected image
-							BufferedImage newImage = ImageIO.read(new File(filename));
+							BufferedImage newImage = ImageIO.read(new File(
+									filename));
 
-							// If this image is bigger than 800x600, we crop it to the correct size
-							if (newImage.getHeight() != 600 && newImage.getWidth() != 800){
+							// If this image is bigger than 800x600, we crop it
+							// to the correct size
+							if (newImage.getHeight() != 600
+									&& newImage.getWidth() != 800) {
 								newImage = Scalr.resize(newImage, 800);
 
 							}
-							
+
 							// Set the image in the model
 							model.setImage(newImage);
 						} catch (IOException e1) {
@@ -116,32 +124,28 @@ public class Main {
 		});
 
 		JButton captureWebcam = new JButton("Webcam");
-captureWebcam.addActionListener(new ActionListener() {
-	
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		
-		// Get image from webcam
-		BufferedImage camImage = CamManager.getCurrentFrame();
-	
-		if (camImage.getHeight() != 600 && camImage.getWidth() != 800){
-			camImage = Scalr.resize(camImage, 800);
+		captureWebcam.addActionListener(new ActionListener() {
 
-		}
-		
-		// Set the image in the model
-		model.setImage(camImage);
-	}
-});
-		
-		
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+
+				// Get image from webcam
+				BufferedImage camImage = CamManager.getCurrentFrame();
+
+				if (camImage.getHeight() != 600 && camImage.getWidth() != 800) {
+					camImage = Scalr.resize(camImage, 800);
+
+				}
+
+				// Set the image in the model
+				model.setImage(camImage);
+			}
+		});
+
 		Box rightBox = Box.createVerticalBox();
 		rightBox.add(openFileChooser);
 		rightBox.add(captureWebcam);
 		frame.add(rightBox, BorderLayout.EAST);
-		
-		
-
 
 	}
 
