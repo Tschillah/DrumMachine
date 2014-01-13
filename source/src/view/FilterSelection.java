@@ -147,7 +147,6 @@ public class FilterSelection extends JPanel implements INotifyable{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				model.setFilter(new RandomAnalyzer());
-				btnFilterRandomAnalyzer.setEnabled(false);
 			}
 		});
 
