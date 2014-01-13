@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -98,8 +99,6 @@ public class Main {
 
 							// If this image is bigger than 800x600, we crop it to the correct size
 							if (newImage.getHeight() != 600 && newImage.getWidth() != 800){
-							//	newImage = newImage.getSubimage(0, 0, 800, 600);	
-							//	newImage = (BufferedImage) newImage.getScaledInstance(800, 600, Image.SCALE_SMOOTH);
 								newImage = Scalr.resize(newImage, 800);
 
 							}
@@ -116,7 +115,33 @@ public class Main {
 			}
 		});
 
-		frame.add(openFileChooser, BorderLayout.EAST);
+		JButton captureWebcam = new JButton("Webcam");
+captureWebcam.addActionListener(new ActionListener() {
+	
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		
+		// Get image from webcam
+		BufferedImage camImage = CamManager.getCurrentFrame();
+	
+		if (camImage.getHeight() != 600 && camImage.getWidth() != 800){
+			camImage = Scalr.resize(camImage, 800);
+
+		}
+		
+		// Set the image in the model
+		model.setImage(camImage);
+	}
+});
+		
+		
+		Box rightBox = Box.createVerticalBox();
+		rightBox.add(openFileChooser);
+		rightBox.add(captureWebcam);
+		frame.add(rightBox, BorderLayout.EAST);
+		
+		
+
 
 	}
 
