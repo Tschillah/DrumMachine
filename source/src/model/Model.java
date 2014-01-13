@@ -257,19 +257,33 @@ public class Model {
 	public void highlightActiveButtons(int col) {
 		int colOld = 0;
 
-		// vorgängige col entfaerben
+		// vorgaengige col entfaerben
 		if (col > 0) {
 			colOld = col - 1;
 		} else {
 			colOld = COLCOUNT - 1;
 		}
 		for (int y = 0; y < LINECOUNT; y++) {
-			this.getButton(colOld, y).setBorderColor(Color.WHITE);
+			this.getButton(colOld, y).setUnhighlighted();
 		}
 
 		// aktuelle col einfaerben
 		for (int y = 0; y < LINECOUNT; y++) {
-			this.getButton(col, y).setBorderColor(Color.BLACK);
+			this.getButton(col, y).setHighlighted();
+		}
+	}
+
+
+	/*
+	 * Method to unhighlight all buttons
+	 * 
+	 * @author Caroline, Marlene
+	 */
+	public void unhighlightAllButtons() {
+		for (int x = 0; x < COLCOUNT; x++) {
+			for (int y = 0; y < LINECOUNT; y++) {
+				this.getButton(x, y).setUnhighlighted();
+			}
 		}
 	}
 
