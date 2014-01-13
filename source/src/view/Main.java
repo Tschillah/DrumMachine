@@ -70,9 +70,8 @@ public class Main {
 		// Get the model instance
 		final Model model = Model.getInstance();
 		
-		// Instantiate the drum pad, set it in the model, and add it to the frame
+		// Instantiate the drum pad and add it to the frame
 		DrumPad drumPad = new DrumPad();
-		model.setDrumPad(drumPad);
 		frame.add(drumPad, BorderLayout.WEST);
 
 		// Instantiate the filter selection and add the filter selection to the frame

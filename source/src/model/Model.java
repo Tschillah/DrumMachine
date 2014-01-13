@@ -11,7 +11,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import strategies.ColorAnalyzer;
 import strategies.IImageAnalyzer;
-import view.DrumPad;
 import view.DrumPadButton;
 
 public class Model {
@@ -25,7 +24,7 @@ public class Model {
 	final int BLOCKCOUNT = LINECOUNT * COLCOUNT;
 	private BufferedImage image;
 	private DrumPadButton buttons[][] = new DrumPadButton[COLCOUNT][LINECOUNT];
-	private DrumPad drumPad;
+
 
 	// private String[] sampleLines = { "clave.wav", "perc7.wav", "perc3.wav",
 	// "snare1.wav", "snare2.wav", "snare3.wav" };
@@ -83,14 +82,6 @@ public class Model {
 
 	public int getColCount() {
 		return COLCOUNT;
-	}
-
-	public void setDrumPad(DrumPad drumPad) {
-		this.drumPad = drumPad;
-	}
-
-	public DrumPad getDrumPad() {
-		return drumPad;
 	}
 
 	/*

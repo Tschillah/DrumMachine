@@ -50,6 +50,7 @@ public class FilterSelection extends JPanel {
 		txtSpeed.setText("200");
 
 		btnPlay = new JButton("Play");
+		btnPlay.setBackground(Color.GREEN);
 		btnPlay.addActionListener(new ActionListener() {
 
 			@Override
@@ -64,16 +65,22 @@ public class FilterSelection extends JPanel {
 				model.setSpeed(speed);
 				model.stopTactMachine();
 				model.startTactMachine();
+				btnStop.setEnabled(true);
+				btnPlay.setEnabled(false);
 			}
 		});
 
 		btnStop = new JButton("Stop");
+		btnStop.setBackground(Color.RED);
+		btnStop.setEnabled(false);
 		btnStop.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// model.buildSound(0);
 				model.stopTactMachine();
+				btnStop.setEnabled(false);
+				btnPlay.setEnabled(true);
 			}
 		});
 
@@ -162,5 +169,9 @@ public class FilterSelection extends JPanel {
 		this.add(btnFilterGrayScaleAnalyzer);
 		this.add(btnFilterYUVAnalyzer);
 
+	}
+	
+	public void toggleFilter(){
+		
 	}
 }
