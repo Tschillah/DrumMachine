@@ -268,6 +268,20 @@ public class Model {
 		}
 	}
 
+
+	/*
+	 * Method to unhighlight all buttons
+	 * 
+	 * @author Caroline, Marlene
+	 */
+	public void unhighlightAllButtons() {
+		for (int x = 0; x < COLCOUNT; x++) {
+			for (int y = 0; y < LINECOUNT; y++) {
+				this.getButton(x, y).setUnhighlighted();
+			}
+		}
+	}
+
 	public void setSpeed(int miliseconds) {
 		tactMachine.setSpeed(miliseconds);
 	}
