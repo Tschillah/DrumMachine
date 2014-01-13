@@ -23,12 +23,13 @@ import strategies.IImageAnalyzer;
  */
 public class DrumPadButton extends JButton {
 	
-	boolean enabled;
+	boolean enabled, highlighted;
 	BufferedImage bg;
 	
 	public DrumPadButton(BufferedImage background) {
 		
 		this.enabled = false;
+		this.highlighted = false;
 		this.bg = background;
 		
 		// Set the background, button size, etc.
@@ -102,6 +103,15 @@ public class DrumPadButton extends JButton {
 			g.setColor(new Color(190,190,190,200));
 			g.fillRect(0, 0, clipRectangle.width,clipRectangle.height);
 		} 
+		
+		// If this button is highlighted, we add an additional orange layer over it
+		if(highlighted){
+			Rectangle clipRectangle = g.getClipBounds();
+			g.setColor(new Color(255,165,0,200));
+			g.fillRect(0, 0, clipRectangle.width,clipRectangle.height);
+		} else {
+			// ?
+		}
 	}
 	
 	/*
@@ -122,6 +132,23 @@ public class DrumPadButton extends JButton {
 		repaint();
 	}
 	
+	/*
+	 * Changes the button state to highlighted
+	 * and repaint the control
+	 */
+	public void setHighlighted() {
+		this.highlighted = true;
+		repaint();
+	}
+
+	/*
+	 * Changes the button state to unhighlighted
+	 * and repaint the control
+	 */
+	public void setUnhighlighted() {
+		this.highlighted = false;
+		repaint();
+	}
 
 
 }
