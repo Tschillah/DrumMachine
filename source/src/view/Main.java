@@ -15,6 +15,11 @@ import javax.swing.JFrame;
 
 import model.Model;
 
+/**
+ * Main class that starts the application and instantiates the model and the view
+ * @author Chilla
+ *
+ */
 public class Main {
 
 	private JFrame frame;
@@ -52,24 +57,28 @@ public class Main {
 	 * @throws IOException
 	 */
 	private void initialize() throws IOException {
+		
+		// Instantiate frame, set title/size/closeoperation/layout
 		frame = new JFrame();
 		frame.setTitle("ecp - Drum Machine");
 		frame.setBounds(100, 0, 1000, 680);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 
+		// Get the model instance
 		final Model model = Model.getInstance();
+		
+		// Instantiate the drum pad, set it in the model, and add it to the frame
 		DrumPad drumPad = new DrumPad();
-
 		model.setDrumPad(drumPad);
-
 		frame.add(drumPad, BorderLayout.WEST);
 
+		// Instantiate the filter selection and add the filter selection to the frame
 		FilterSelection filterSelection = new FilterSelection();
 		frame.add(filterSelection, BorderLayout.NORTH);
 
+		// Instantiate the file chooser to select images and add it to the frame
 		final JFileChooser fileChooser = new JFileChooser();
-
 		JButton openFileChooser = new JButton("Select Image");
 		openFileChooser.addActionListener(new ActionListener() {
 
@@ -78,20 +87,22 @@ public class Main {
 
 				fileChooser.showOpenDialog(frame);
 				if (fileChooser.getSelectedFile() != null) {
-					String filename = fileChooser.getSelectedFile()
-							.getAbsolutePath();
+					String filename = fileChooser.getSelectedFile().getAbsolutePath();
 
 					if (filename != null) {
 
 						try {
-							BufferedImage newImage = ImageIO.read(new File(
-									filename));
+							// Read the selected image
+							BufferedImage newImage = ImageIO.read(new File(filename));
 
-							newImage = newImage.getSubimage(0, 0, 800, 600);
-
+							// If this image is bigger than 800x600, we crop it to the correct size
+							if (newImage.getHeight() > 600 && newImage.getWidth() > 800){
+								newImage = newImage.getSubimage(0, 0, 800, 600);				
+							}
+							
+							// Set the image in the model
 							model.setImage(newImage);
 						} catch (IOException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 
@@ -102,8 +113,6 @@ public class Main {
 		});
 
 		frame.add(openFileChooser, BorderLayout.EAST);
-
-		// TEST
 
 	}
 
