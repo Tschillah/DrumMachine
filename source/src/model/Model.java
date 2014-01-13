@@ -97,9 +97,8 @@ public class Model {
 	 * Sets an image and afterwarts divides an analyzes it
 	 */
 	public void setImage(BufferedImage img) {
+		stopTactMachine();
 		this.image = img;
-
-		// image = ImageIO.read(new File("res/farben.jpg"));
 		divideImage();
 		analyzeImage();
 	}
