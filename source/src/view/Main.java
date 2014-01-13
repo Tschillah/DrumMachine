@@ -1,4 +1,5 @@
 package view;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -14,13 +15,10 @@ import javax.swing.JFrame;
 
 import model.Model;
 
-
-
 public class Main {
 
 	private JFrame frame;
 	final JFileChooser fc = new JFileChooser();
-
 
 	/**
 	 * Launch the application.
@@ -41,7 +39,8 @@ public class Main {
 
 	/**
 	 * Create the application.
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	public Main() throws IOException {
 		initialize();
@@ -49,7 +48,8 @@ public class Main {
 
 	/**
 	 * Initialize the contents of the frame.
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	private void initialize() throws IOException {
 		frame = new JFrame();
@@ -57,53 +57,54 @@ public class Main {
 		frame.setBounds(100, 0, 1000, 680);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
-		
-		
+
 		final Model model = Model.getInstance();
 		DrumPad drumPad = new DrumPad();
-		
+
+		model.setDrumPad(drumPad);
+
 		frame.add(drumPad, BorderLayout.WEST);
-		
-		
+
 		FilterSelection filterSelection = new FilterSelection();
 		frame.add(filterSelection, BorderLayout.NORTH);
-		
+
 		final JFileChooser fileChooser = new JFileChooser();
-		
+
 		JButton openFileChooser = new JButton("Select Image");
 		openFileChooser.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
 				fileChooser.showOpenDialog(frame);
-				if (fileChooser.getSelectedFile() != null){
-					String filename = fileChooser.getSelectedFile().getAbsolutePath();
-					
-					if (filename != null){
-						
+				if (fileChooser.getSelectedFile() != null) {
+					String filename = fileChooser.getSelectedFile()
+							.getAbsolutePath();
+
+					if (filename != null) {
+
 						try {
-							BufferedImage newImage = ImageIO.read(new File(filename));
-							
-							newImage = newImage.getSubimage(0, 0,  800,  600);							
-							
+							BufferedImage newImage = ImageIO.read(new File(
+									filename));
+
+							newImage = newImage.getSubimage(0, 0, 800, 600);
+
 							model.setImage(newImage);
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-						
+
 					}
 				}
-				
-				
+
 			}
 		});
-	      		
+
 		frame.add(openFileChooser, BorderLayout.EAST);
-		
+
 		// TEST
-		
+
 	}
 
 }

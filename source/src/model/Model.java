@@ -11,6 +11,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import strategies.ColorAnalyzer;
 import strategies.IImageAnalyzer;
+import view.DrumPad;
 import view.DrumPadButton;
 
 public class Model {
@@ -24,11 +25,15 @@ public class Model {
 	final int BLOCKCOUNT = LINECOUNT * COLCOUNT;
 	private BufferedImage image;
 	private DrumPadButton buttons[][] = new DrumPadButton[COLCOUNT][LINECOUNT];
+	private DrumPad drumPad;
 
-	private String[] sampleLines = { "clave.wav", "perc7.wav", "perc3.wav",
-			"snare1.wav", "snare2.wav", "snare3.wav" };
+	// private String[] sampleLines = { "clave.wav", "perc7.wav", "perc3.wav",
+	// "snare1.wav", "snare2.wav", "snare3.wav" };
+	private String[] sampleLines = { "cowbell1.wav", "cowbell2.wav",
+			"cowbell6.wav", "bongo10.wav", "kickdrum2.wav", "rattle2.wav" };
 
-	//	private LinkedList<INotifyable> listeners = new LinkedList<INotifyable>();
+	// private LinkedList<INotifyable> listeners = new
+	// LinkedList<INotifyable>();
 	private SoundManager sou;
 
 	private TactMachine tactMachine = null;
@@ -58,6 +63,8 @@ public class Model {
 	}
 
 	public void startTactMachine() {
+		tactMachine.setRunning(true);
+		thread = new Thread(tactMachine);
 		thread.start();
 	}
 
@@ -78,15 +85,23 @@ public class Model {
 		return COLCOUNT;
 	}
 
+	public void setDrumPad(DrumPad drumPad) {
+		this.drumPad = drumPad;
+	}
+
+	public DrumPad getDrumPad() {
+		return drumPad;
+	}
+
 	/*
 	 * Sets an image and afterwarts divides an analyzes it
 	 */
 	public void setImage(BufferedImage img) {
-			this.image = img;
+		this.image = img;
 
-			//image = ImageIO.read(new File("res/farben.jpg"));
-			divideImage();
-			analyzeImage();
+		// image = ImageIO.read(new File("res/farben.jpg"));
+		divideImage();
+		analyzeImage();
 	}
 
 	/*
@@ -98,23 +113,21 @@ public class Model {
 
 			for (int y = 0; y < LINECOUNT; y++) {
 
-				if (buttons[x][y] == null){
+				if (buttons[x][y] == null) {
 
-					BufferedImage bg = image
-							.getSubimage(getBlockWidth() * x, getBlockHeight() * y,
-									getBlockWidth(), getBlockHeight());
+					BufferedImage bg = image.getSubimage(getBlockWidth() * x,
+							getBlockHeight() * y, getBlockWidth(),
+							getBlockHeight());
 
-					buttons[x][y] = new DrumPadButton(bg); 
+					buttons[x][y] = new DrumPadButton(bg);
 
 				} else {
 
-					buttons[x][y].setBackground(image
-							.getSubimage(getBlockWidth() * x, getBlockHeight() * y,
-									getBlockWidth(), getBlockHeight())); 
+					buttons[x][y].setBackground(image.getSubimage(
+							getBlockWidth() * x, getBlockHeight() * y,
+							getBlockWidth(), getBlockHeight()));
 
-
-				
-				}			
+				}
 			}
 		}
 
@@ -126,7 +139,7 @@ public class Model {
 	public void analyzeImage() {
 		// send image blocks to analyzer
 		for (int x = 0; x < COLCOUNT; x++) {
-			for (int y = 0; y < LINECOUNT; y++) { 
+			for (int y = 0; y < LINECOUNT; y++) {
 				buttons[x][y].analyze(imageAnalyzer);
 			}
 		}
@@ -140,11 +153,9 @@ public class Model {
 		return image.getHeight() / LINECOUNT;
 	}
 
-
 	public DrumPadButton getButton(int x, int y) {
 		return buttons[x][y];
 	}
-
 
 	/**
 	 * Sets the current ImageAnalyzer
@@ -156,8 +167,6 @@ public class Model {
 		analyzeImage();
 	}
 
-
-
 	// method which preserves access to this class
 	public static Model getInstance() {
 		if (instance == null) {
@@ -166,25 +175,20 @@ public class Model {
 		return instance;
 	}
 
-	public int getLineCount(){
+	public int getLineCount() {
 		return LINECOUNT;
 	}
 
-	public int getColumnCount(){
+	public int getColumnCount() {
 		return COLCOUNT;
 	}
 
 	/*
-	public void addModelChangeListener(INotifyable listener) {
-		listeners.add(listener);
-	}
-
-	public void notifyListeners() {
-		for (INotifyable listener : listeners) {
-			listener.update();
-		}
-	}
-
+	 * public void addModelChangeListener(INotifyable listener) {
+	 * listeners.add(listener); }
+	 * 
+	 * public void notifyListeners() { for (INotifyable listener : listeners) {
+	 * listener.update(); } }
 	 */
 	public boolean isFilterActive() {
 		return true;
@@ -196,10 +200,8 @@ public class Model {
 	public void buildSound(int column) {
 
 		/*
-		if (column > COLCOUNT - 1) {
-			column = 0;
-		}
-		*/
+		 * if (column > COLCOUNT - 1) { column = 0; }
+		 */
 
 		int count = -1;
 		sou.clear();
@@ -208,7 +210,7 @@ public class Model {
 			if (buttons[column][j].getState()) {
 
 				try {
-					sou.addClip("samples/" + sampleLines[j]);
+					sou.addClip("samples/sam2/" + sampleLines[j]);
 					System.out.println("sample: " + sampleLines[j] + " added");
 					count++;
 				} catch (IOException e) {
@@ -245,13 +247,10 @@ public class Model {
 		 */
 
 		/*
-		 * try { Thread.sleep(500); } catch (InterruptedException e) 
-		 * { // TODO
-		 * Auto-generated catch block e.printStackTrace(); 
-		 * }
+		 * try { Thread.sleep(500); } catch (InterruptedException e) { // TODO
+		 * Auto-generated catch block e.printStackTrace(); }
 		 */
 
 	}
-
 
 }
