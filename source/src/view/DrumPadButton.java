@@ -97,8 +97,8 @@ public class DrumPadButton extends JButton {
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		
-		// If this button is enabled, we add an additional grey layer over it
-		if(enabled){
+		// If this button is disabled, we add an additional grey layer over it
+		if(!enabled){
 			Rectangle clipRectangle = g.getClipBounds();
 			g.setColor(new Color(190,190,190,200));
 			g.fillRect(0, 0, clipRectangle.width,clipRectangle.height);
