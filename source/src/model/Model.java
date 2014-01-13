@@ -259,13 +259,11 @@ public class Model {
 			colOld = COLCOUNT - 1;
 		}
 		for (int y = 0; y < LINECOUNT; y++) {
-			//this.getButton(colOld, y).setBorderColor(Color.WHITE);
 			this.getButton(colOld, y).setUnhighlighted();
 		}
 
 		// aktuelle col einfaerben
 		for (int y = 0; y < LINECOUNT; y++) {
-			//this.getButton(col, y).setBorderColor(Color.BLACK);
 			this.getButton(col, y).setHighlighted();
 		}
 	}

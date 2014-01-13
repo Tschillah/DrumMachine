@@ -109,8 +109,6 @@ public class DrumPadButton extends JButton {
 			Rectangle clipRectangle = g.getClipBounds();
 			g.setColor(new Color(255,165,0,200));
 			g.fillRect(0, 0, clipRectangle.width,clipRectangle.height);
-		} else {
-			// ?
 		}
 	}
 	
