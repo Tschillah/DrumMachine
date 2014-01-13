@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -16,15 +17,16 @@ import strategies.GrayScaleAnalyzer;
 import strategies.NullAnalyzer;
 import strategies.RandomAnalyzer;
 import strategies.YUVAnalyzer;
+import framework.INotifyable;
 
-public class FilterSelection extends JPanel {
+public class FilterSelection extends JPanel implements INotifyable{
 
 	/*
 	 * GUI part for selecitng the filterFilterSelectionFilterSelection
 	 */
 
 	Model model = Model.getInstance();
-
+	
 	// Controls
 	JLabel lblSpeed;
 	JTextField txtSpeed;
@@ -40,9 +42,13 @@ public class FilterSelection extends JPanel {
 	JButton btnFilterRandomAnalyzer;
 	JButton btnFilterGrayScaleAnalyzer;
 	JButton btnFilterYUVAnalyzer;
+	
+	ArrayList<JButton> filterButtons = new ArrayList<JButton>();
 
 	public FilterSelection() {
 
+		model.register(this);
+		
 		lblSpeed = new JLabel("bpm: ");
 
 		txtSpeed = new JTextField();
@@ -85,11 +91,13 @@ public class FilterSelection extends JPanel {
 		});
 
 		btnNone = new JButton("None");
+		btnNone.setEnabled(false);
 		btnNone.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				model.setFilter(new NullAnalyzer(false));
+				btnNone.setEnabled(false);
 			}
 		});
 
@@ -99,6 +107,7 @@ public class FilterSelection extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				model.setFilter(new NullAnalyzer(true));
+				btnAll.setEnabled(false);
 			}
 		});
 
@@ -108,6 +117,7 @@ public class FilterSelection extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				model.setFilter(new ColorAnalyzer(Color.RED));
+				btnFilterRedColorAnalyzer.setEnabled(false);
 			}
 		});
 
@@ -117,6 +127,7 @@ public class FilterSelection extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				model.setFilter(new ColorAnalyzer(Color.GREEN));
+				btnFilterGreenColorAnalyzer.setEnabled(false);
 			}
 		});
 
@@ -126,6 +137,7 @@ public class FilterSelection extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				model.setFilter(new ColorAnalyzer(Color.BLUE));
+				btnFilterBlueColorAnalyzer.setEnabled(false);
 			}
 		});
 
@@ -135,6 +147,7 @@ public class FilterSelection extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				model.setFilter(new RandomAnalyzer());
+				btnFilterRandomAnalyzer.setEnabled(false);
 			}
 		});
 
@@ -144,6 +157,7 @@ public class FilterSelection extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				model.setFilter(new GrayScaleAnalyzer());
+				btnFilterGrayScaleAnalyzer.setEnabled(false);
 			}
 		});
 
@@ -153,6 +167,7 @@ public class FilterSelection extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				model.setFilter(new YUVAnalyzer());
+				btnFilterYUVAnalyzer.setEnabled(false);
 			}
 		});
 
@@ -161,17 +176,41 @@ public class FilterSelection extends JPanel {
 		this.add(btnPlay);
 		this.add(btnStop);
 		this.add(btnNone);
+		filterButtons.add(btnNone);
+
 		this.add(btnAll);
+		filterButtons.add(btnAll);
+
 		this.add(btnFilterRedColorAnalyzer);
+		filterButtons.add(btnFilterRedColorAnalyzer);
+		
 		this.add(btnFilterGreenColorAnalyzer);
+		filterButtons.add(btnFilterGreenColorAnalyzer);
+
 		this.add(btnFilterBlueColorAnalyzer);
+		filterButtons.add(btnFilterBlueColorAnalyzer);
+
 		this.add(btnFilterRandomAnalyzer);
+		filterButtons.add(btnFilterRandomAnalyzer);
+
 		this.add(btnFilterGrayScaleAnalyzer);
+		filterButtons.add(btnFilterGrayScaleAnalyzer);
+
 		this.add(btnFilterYUVAnalyzer);
+		filterButtons.add(btnFilterYUVAnalyzer);
+
 
 	}
 	
 	public void toggleFilter(){
+		
+	}
+
+	@Override
+	public void update() {
+		for (JButton b : filterButtons) {
+			b.setEnabled(true);
+		}
 		
 	}
 }

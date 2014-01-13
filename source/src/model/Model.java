@@ -4,20 +4,24 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import strategies.ColorAnalyzer;
 import strategies.IImageAnalyzer;
+import strategies.NullAnalyzer;
 import view.DrumPadButton;
+import framework.INotifyable;
 
 public class Model {
 
 	private static Model instance = null;
 
 	private IImageAnalyzer imageAnalyzer;
+	
+	ArrayList<INotifyable> notifyables = new ArrayList<INotifyable>();
 
 	final int LINECOUNT = 6;
 	final int COLCOUNT = 16;
@@ -49,7 +53,7 @@ public class Model {
 			image = ImageIO.read(new File("res/farben.jpg"));
 			// image = ImageIO.read(new File("res/flower.jpg"));
 
-			imageAnalyzer = new ColorAnalyzer(Color.RED);
+			imageAnalyzer = new NullAnalyzer(false);
 
 			// imageAnalyzer = new GrayScaleAnalyzer();
 			divideImage();
@@ -155,6 +159,7 @@ public class Model {
 	public void setFilter(IImageAnalyzer analyzer) {
 		this.imageAnalyzer = analyzer;
 		analyzeImage();
+		update();
 	}
 
 	// method which preserves access to this class
@@ -274,5 +279,15 @@ public class Model {
 
 	public boolean isRunning() {
 		return tactMachine.isRunning();
+	}
+	
+	public void register(INotifyable n){
+		notifyables.add(n);
+	}
+	
+	public void update(){
+		for (INotifyable n: notifyables) {
+			n.update();
+		}
 	}
 }
