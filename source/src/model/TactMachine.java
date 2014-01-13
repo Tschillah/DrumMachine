@@ -14,6 +14,7 @@ public class TactMachine implements Runnable {
 
 	public void terminate() {
 		running = false;
+		model.unhighlightAllButtons();
 	}
 
 	public void setRunning(boolean running) {
