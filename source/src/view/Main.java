@@ -15,6 +15,8 @@ import javax.swing.JFrame;
 
 import model.Model;
 
+import org.imgscalr.Scalr;
+
 /**
  * Main class that starts the application and instantiates the model and the view
  * @author Chilla
@@ -96,8 +98,11 @@ public class Main {
 							BufferedImage newImage = ImageIO.read(new File(filename));
 
 							// If this image is bigger than 800x600, we crop it to the correct size
-							if (newImage.getHeight() > 600 && newImage.getWidth() > 800){
-								newImage = newImage.getSubimage(0, 0, 800, 600);				
+							if (newImage.getHeight() != 600 && newImage.getWidth() != 800){
+							//	newImage = newImage.getSubimage(0, 0, 800, 600);	
+							//	newImage = (BufferedImage) newImage.getScaledInstance(800, 600, Image.SCALE_SMOOTH);
+								newImage = Scalr.resize(newImage, 800);
+
 							}
 							
 							// Set the image in the model
