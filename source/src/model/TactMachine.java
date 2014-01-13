@@ -1,18 +1,14 @@
 package model;
 
-import view.DrumPad;
-
 public class TactMachine implements Runnable {
 
 	private int currentColumn;
 	private Model model;
-	private DrumPad drumPad;
 
 	private volatile boolean running = true;
 
 	public TactMachine(Model model) {
 		this.model = model;
-		this.drumPad = model.getDrumPad();
 	}
 
 	public void terminate() {
@@ -30,7 +26,7 @@ public class TactMachine implements Runnable {
 		while (running) {
 			System.out.println("current Collumn: " + col);
 			model.buildSound(col);
-			// drumPad.highlightActiveButtons(col);
+			model.highlightActiveButtons(col);
 			currentColumn = col;
 			i++;
 			col = i % model.getColCount();

@@ -253,4 +253,28 @@ public class Model {
 
 	}
 
+	/*
+	 * Method to highlight column of currently played buttons
+	 * 
+	 * @author Caroline, Marlene
+	 */
+	public void highlightActiveButtons(int col) {
+		int colOld = 0;
+
+		// vorgängige col entfaerben
+		if (col > 0) {
+			colOld = col - 1;
+		} else {
+			colOld = COLCOUNT - 1;
+		}
+		for (int y = 0; y < LINECOUNT; y++) {
+			this.getButton(colOld, y).setBorderColor(Color.WHITE);
+		}
+
+		// aktuelle col einfaerben
+		for (int y = 0; y < LINECOUNT; y++) {
+			this.getButton(col, y).setBorderColor(Color.BLACK);
+		}
+	}
+
 }
