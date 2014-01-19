@@ -173,7 +173,7 @@ public class FilterSelection extends JPanel implements INotifyable{
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				model.setFilter(new YUVAnalyzer());
+				model.setFilter(new YUVAnalyzer(Integer.parseInt(txtTreshold.getText())));
 				btnFilterYUVAnalyzer.setEnabled(false);
 			}
 		});
