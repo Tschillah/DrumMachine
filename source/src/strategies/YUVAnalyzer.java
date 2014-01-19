@@ -34,7 +34,7 @@ public class YUVAnalyzer implements IImageAnalyzer {
 				sum += (y + u + v)/3;
 			}
 		}
-
+		
 		return sum / (img.getWidth()*img.getHeight()) > threshold;
 	}
 }
