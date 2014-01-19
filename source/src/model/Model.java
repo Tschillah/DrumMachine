@@ -326,7 +326,7 @@ public class Model {
 	 * @param bpm
 	 */
 	public void setBPM(int bpm) {
-		tactMachine.setSpeed(bpm);
+		tactMachine.setBPM(bpm);
 	}
 
 	/**
