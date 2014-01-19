@@ -8,7 +8,9 @@ import java.awt.image.BufferedImage;
  * strategy
  */
 public interface IImageAnalyzer {
-	
+
+	void setTeshold(int threshold);
+
 	boolean analyze(BufferedImage imgpart);
-	
+
 }

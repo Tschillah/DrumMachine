@@ -77,7 +77,6 @@ public class FilterSelection extends JPanel implements INotifyable {
 					model.setBPM(bpm);
 					sldrBPM.setValue(bpm);
 				}
-
 			}
 		});
 
@@ -87,12 +86,38 @@ public class FilterSelection extends JPanel implements INotifyable {
 			public void stateChanged(ChangeEvent arg0) {
 				System.out.println(sldrBPM.getValue());
 				model.setBPM(sldrBPM.getValue());
-				txtBPM.setText("" + sldrBPM.getValue());
+				txtBPM.setText(Integer.toString(sldrBPM.getValue()));
 			}
 		});
 
 		lblThreshold = new JLabel("Threshold: ");
-		sldrThreshold = new JSlider(0, 255, 128);
+		sldrThreshold = new JSlider(model.getTHRESHOLDMIN(),
+				model.getTHRESHOLDMAX(), model.getTHRESHOLDDEFAULT());
+		txtTreshold = new JTextField();
+		txtTreshold.setPreferredSize(new Dimension(60, 20));
+		txtTreshold.setText(Integer.toString(model.getTHRESHOLDDEFAULT()));
+		txtTreshold.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if (Parser.validateIntRange(txtTreshold.getText(),
+						model.getTHRESHOLDMIN(), model.getTHRESHOLDMAX())) {
+					int threshold = Integer.parseInt(txtTreshold.getText());
+					model.setThreshold(threshold);
+					sldrThreshold.setValue(threshold);
+				}
+			}
+		});
+
+		sldrThreshold.addChangeListener(new ChangeListener() {
+
+			@Override
+			public void stateChanged(ChangeEvent arg0) {
+				System.out.println(sldrThreshold.getValue());
+				model.setThreshold(sldrThreshold.getValue());
+				txtTreshold.setText(Integer.toString(sldrThreshold.getValue()));
+			}
+		});
 
 		btnPlay = new JButton("Play");
 		btnPlay.setBackground(Color.GREEN);
@@ -243,6 +268,7 @@ public class FilterSelection extends JPanel implements INotifyable {
 
 		this.add(lblThreshold);
 		this.add(sldrThreshold);
+		this.add(txtTreshold);
 
 	}
 

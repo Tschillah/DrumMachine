@@ -34,9 +34,9 @@ public class Model {
 	final int BPMMIN = 200;
 	final int BPMMAX = 800;
 	final int BPMDEFAULT = 400;
-	final int TRESHOLDMIN = 0;
-	final int TRESHOLDMAX = 255;
-	final int TRESHOLDDEFAULT = 128;
+	final int THRESHOLDMIN = 0;
+	final int THRESHOLDMAX = 255;
+	final int THRESHOLDDEFAULT = 128;
 
 	private DrumPadButton buttons[][] = new DrumPadButton[COLCOUNT][LINECOUNT];
 	private String[] sampleLines = { "cowbell1.wav", "cowbell2.wav",
@@ -239,6 +239,17 @@ public class Model {
 	}
 
 	/**
+	 * Sets the given threshold to the current analyzer strategy.
+	 * 
+	 * @param threshold
+	 */
+	public void setThreshold(int threshold) {
+		this.imageAnalyzer.setTeshold(threshold);
+		analyzeImage();
+		update();
+	}
+
+	/**
 	 * Provides access to this class. Returns the model.
 	 * 
 	 * @return
@@ -401,15 +412,15 @@ public class Model {
 		return BPMDEFAULT;
 	}
 
-	public int getTRESHOLDMIN() {
-		return TRESHOLDMIN;
+	public int getTHRESHOLDMIN() {
+		return THRESHOLDMIN;
 	}
 
-	public int getTRESHOLDMAX() {
-		return TRESHOLDMAX;
+	public int getTHRESHOLDMAX() {
+		return THRESHOLDMAX;
 	}
 
-	public int getTRESHOLDDEFAULT() {
-		return TRESHOLDDEFAULT;
+	public int getTHRESHOLDDEFAULT() {
+		return THRESHOLDDEFAULT;
 	}
 }
