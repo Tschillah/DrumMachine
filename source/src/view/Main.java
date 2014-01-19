@@ -135,13 +135,9 @@ public class Main {
 					captureWebcam.setText("Stop Webcam Capture");
 					filterSelection.btnFilterRandomAnalyzer.setEnabled(false);
 				} else {
-<<<<<<< HEAD
 					captureWebcam.setText("Start Webcam Capture");		
 					filterSelection.btnFilterRandomAnalyzer.setEnabled(true);
 
-=======
-					captureWebcam.setText("Start Webcam Capture");
->>>>>>> 0976310cde67ac5e23d58c4f2382b85a0d41957e
 				}
 			}
 		});
