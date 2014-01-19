@@ -203,8 +203,8 @@ public class FilterSelection extends JPanel implements INotifyable{
 		this.add(btnFilterGrayScaleAnalyzer);
 		filterButtons.add(btnFilterGrayScaleAnalyzer);
 
-		//this.add(btnFilterYUVAnalyzer);
-		//filterButtons.add(btnFilterYUVAnalyzer);
+		this.add(btnFilterYUVAnalyzer);
+		filterButtons.add(btnFilterYUVAnalyzer);
 		
 		this.add(lblTreshold);
 		this.add(txtTreshold);
