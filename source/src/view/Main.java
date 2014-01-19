@@ -64,10 +64,21 @@ public class Main {
 		// Instantiate frame, set title/size/closeoperation/layout
 		frame = new JFrame();
 		frame.setTitle("ecp - Drum Machine");
-		frame.setBounds(100, 0, 1200, 680);
+		frame.setBounds(100, 0, 845, 746);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 
+		// Boxes to layout the controls
+		Box rowImageSource = Box.createHorizontalBox();
+		Box rowBeatControls = Box.createHorizontalBox();
+		Box rowAnalyzer = Box.createHorizontalBox();
+		
+		
+		// Instantiate the filter selection and add the filter selection to the
+		// frame
+		BeatControls beatControls = new BeatControls();
+		rowBeatControls.add(beatControls);
+		
 		// Get the model instance
 		final Model model = Model.getInstance();
 
@@ -78,7 +89,7 @@ public class Main {
 		// Instantiate the filter selection and add the filter selection to the
 		// frame
 		FilterSelection filterSelection = new FilterSelection();
-		frame.add(filterSelection, BorderLayout.NORTH);
+		rowAnalyzer.add(filterSelection, BorderLayout.NORTH);
 
 		// Instantiate the file chooser to select images and add it to the frame
 		final JFileChooser fileChooser = new JFileChooser();
@@ -112,7 +123,7 @@ public class Main {
 			}
 		});
 
-		JButton captureWebcam = new JButton("Webcam");
+		final JButton captureWebcam = new JButton("Start Webcam Capture");
 		captureWebcam.addActionListener(new ActionListener() {
 
 			@Override
@@ -120,13 +131,25 @@ public class Main {
 
 				
 				model.toggleWebcamCapture();
+				if (captureWebcam.getText() == "Start Webcam Capture"){
+					captureWebcam.setText("Stop Webcam Capture");
+				} else {
+					captureWebcam.setText("Start Webcam Capture");		
+				}
 			}
 		});
 
-		Box rightBox = Box.createVerticalBox();
-		rightBox.add(openFileChooser);
-		rightBox.add(captureWebcam);
-		frame.add(rightBox, BorderLayout.EAST);
+		rowImageSource.add(openFileChooser);
+		rowImageSource.add(captureWebcam);
+		
+
+
+		Box topControls = Box.createVerticalBox();
+		topControls.add(rowImageSource);
+		topControls.add(rowBeatControls);
+		topControls.add(rowAnalyzer);
+
+		frame.add(topControls, BorderLayout.NORTH);
 
 	}
 

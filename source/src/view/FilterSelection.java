@@ -33,16 +33,11 @@ public class FilterSelection extends JPanel implements INotifyable {
 	Model model = Model.getInstance();
 
 	// Controls
-	JLabel lblBPM;
-	JSlider sldrBPM;
-	JTextField txtBPM;
 
 	JLabel lblThreshold;
 	JSlider sldrThreshold;
 	JTextField txtTreshold;
 
-	JButton btnPlay;
-	JButton btnStop;
 
 	// Filters
 	JButton btnNone;
@@ -59,36 +54,6 @@ public class FilterSelection extends JPanel implements INotifyable {
 	public FilterSelection() {
 
 		model.register(this);
-
-		// BPM Components
-		lblBPM = new JLabel("bpm: ");
-		sldrBPM = new JSlider(model.getBPMMIN(), model.getBPMMAX(),
-				model.getBPMDEFAULT());
-		txtBPM = new JTextField();
-		txtBPM.setPreferredSize(new Dimension(60, 20));
-		txtBPM.setText(Integer.toString(model.getBPMDEFAULT()));
-		txtBPM.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				if (Parser.validateIntRange(txtBPM.getText(),
-						model.getBPMMIN(), model.getBPMMAX())) {
-					int bpm = Integer.parseInt(txtBPM.getText());
-					model.setBPM(bpm);
-					sldrBPM.setValue(bpm);
-				}
-			}
-		});
-
-		sldrBPM.addChangeListener(new ChangeListener() {
-
-			@Override
-			public void stateChanged(ChangeEvent arg0) {
-				System.out.println(sldrBPM.getValue());
-				model.setBPM(sldrBPM.getValue());
-				txtBPM.setText(Integer.toString(sldrBPM.getValue()));
-			}
-		});
 
 		lblThreshold = new JLabel("Threshold: ");
 		sldrThreshold = new JSlider(model.getTHRESHOLDMIN(),
@@ -119,40 +84,6 @@ public class FilterSelection extends JPanel implements INotifyable {
 			}
 		});
 
-		btnPlay = new JButton("Play");
-		btnPlay.setBackground(Color.GREEN);
-		btnPlay.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int speed = 200;
-				try {
-					speed = Integer.parseInt(txtBPM.getText());
-				} catch (NumberFormatException e1) {
-
-				}
-
-				model.setBPM(speed);
-				model.stopTactMachine();
-				model.startTactMachine();
-				btnStop.setEnabled(true);
-				btnPlay.setEnabled(false);
-			}
-		});
-
-		btnStop = new JButton("Stop");
-		btnStop.setBackground(Color.RED);
-		btnStop.setEnabled(false);
-		btnStop.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// model.buildSound(0);
-				model.stopTactMachine();
-				btnStop.setEnabled(false);
-				btnPlay.setEnabled(true);
-			}
-		});
 
 		btnNone = new JButton("None");
 		btnNone.setEnabled(false);
@@ -237,11 +168,7 @@ public class FilterSelection extends JPanel implements INotifyable {
 			}
 		});
 
-		this.add(lblBPM);
-		this.add(sldrBPM);
-		this.add(txtBPM);
-		this.add(btnPlay);
-		this.add(btnStop);
+
 		this.add(btnNone);
 		filterButtons.add(btnNone);
 
