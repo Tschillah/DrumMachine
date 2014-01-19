@@ -31,6 +31,12 @@ public class Model {
 	final int LINECOUNT = 6;
 	final int COLCOUNT = 16;
 	final int BLOCKCOUNT = LINECOUNT * COLCOUNT;
+	final int BPMMIN = 200;
+	final int BPMMAX = 800;
+	final int BPMDEFAULT = 400;
+	final int TRESHOLDMIN = 0;
+	final int TRESHOLDMAX = 255;
+	final int TRESHOLDDEFAULT = 128;
 
 	private DrumPadButton buttons[][] = new DrumPadButton[COLCOUNT][LINECOUNT];
 	private String[] sampleLines = { "cowbell1.wav", "cowbell2.wav",
@@ -44,6 +50,9 @@ public class Model {
 	private Thread thread = null;
 	private Thread webcamThread = null;
 
+	/*
+	 * private int currentTreshold; private int currentBPM;
+	 */
 
 	public Model() {
 
@@ -53,7 +62,7 @@ public class Model {
 		tactMachine = new TactMachine(this);
 		thread = new Thread(tactMachine);
 		webcamThread = new Thread(camManager);
-		
+
 		try {
 			image = ImageIO.read(new File("res/farben.jpg"));
 			imageAnalyzer = new NullAnalyzer(false);
@@ -90,16 +99,16 @@ public class Model {
 			}
 		}
 	}
-	
+
 	public void toggleWebcamCapture() {
-		if (camManager.getRunning()){
+		if (camManager.getRunning()) {
 			stopWebcamCapture();
 		} else {
 			startWebcamCapture();
 		}
-		
+
 	}
-	
+
 	public void startWebcamCapture() {
 		camManager.setRunning(true);
 		webcamThread = new Thread(camManager);
@@ -132,16 +141,16 @@ public class Model {
 	 * Sets an image and afterwards divides and analyzes it.
 	 */
 	public void setImage(BufferedImage img, boolean webcam) {
-	//	stopTactMachine();
-		
-		if (!webcam){
+		// stopTactMachine();
+
+		if (!webcam) {
 			stopWebcamCapture();
 		}
-		
+
 		if (img.getHeight() != 600 && img.getWidth() != 800) {
 			img = Scalr.resize(img, 800);
 		}
-		
+
 		this.image = img;
 		divideImage();
 		analyzeImage();
@@ -376,5 +385,31 @@ public class Model {
 	 */
 	public BufferedImage getCurrentFrame() {
 		return camManager.getCurrentFrame();
+	}
+
+	// Getters and Setters
+
+	public int getBPMMIN() {
+		return BPMMIN;
+	}
+
+	public int getBPMMAX() {
+		return BPMMAX;
+	}
+
+	public int getBPMDEFAULT() {
+		return BPMDEFAULT;
+	}
+
+	public int getTRESHOLDMIN() {
+		return TRESHOLDMIN;
+	}
+
+	public int getTRESHOLDMAX() {
+		return TRESHOLDMAX;
+	}
+
+	public int getTRESHOLDDEFAULT() {
+		return TRESHOLDDEFAULT;
 	}
 }

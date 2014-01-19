@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
@@ -34,11 +33,14 @@ public class FilterSelection extends JPanel implements INotifyable {
 	Model model = Model.getInstance();
 
 	// Controls
-	JLabel lblSpeed;
-	JLabel lblThreshold;
-	JTextField txtSpeed;
+	JLabel lblBPM;
 	JSlider sldrBPM;
+	JTextField txtBPM;
+
+	JLabel lblThreshold;
 	JSlider sldrThreshold;
+	JTextField txtTreshold;
+
 	JButton btnPlay;
 	JButton btnStop;
 
@@ -58,38 +60,22 @@ public class FilterSelection extends JPanel implements INotifyable {
 
 		model.register(this);
 
-		lblSpeed = new JLabel("bpm: ");
-		sldrBPM = new JSlider(60, 800, 128);
-		txtSpeed = new JTextField();
-		txtSpeed.setPreferredSize(new Dimension(60, 20));
-		txtSpeed.setText("200");
-
-		lblThreshold = new JLabel("Threshold: ");
-		sldrThreshold = new JSlider(0, 255, 128);
-
-		txtSpeed.addActionListener(new ActionListener() {
+		// BPM Components
+		lblBPM = new JLabel("bpm: ");
+		sldrBPM = new JSlider(model.getBPMMIN(), model.getBPMMAX(),
+				model.getBPMDEFAULT());
+		txtBPM = new JTextField();
+		txtBPM.setPreferredSize(new Dimension(60, 20));
+		txtBPM.setText(Integer.toString(model.getBPMDEFAULT()));
+		txtBPM.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				int bpm;
-				if (Parser.tryParseInt(txtSpeed.getText())) {
-					bpm = Integer.parseInt(txtSpeed.getText());
-
-					if (bpm >= 60 && bpm <= 800) {
-						model.setBPM(bpm);
-						sldrBPM.setValue(bpm);
-					} else {
-						JOptionPane
-								.showMessageDialog(
-										null,
-										"Error: Please enter a number between 60 and 800",
-										"Error Massage",
-										JOptionPane.ERROR_MESSAGE);
-					}
-				} else {
-					JOptionPane.showMessageDialog(null,
-							"Error: Please enter a number", "Error Massage",
-							JOptionPane.ERROR_MESSAGE);
+				if (Parser.validateIntRange(txtBPM.getText(),
+						model.getBPMMIN(), model.getBPMMAX())) {
+					int bpm = Integer.parseInt(txtBPM.getText());
+					model.setBPM(bpm);
+					sldrBPM.setValue(bpm);
 				}
 
 			}
@@ -101,9 +87,12 @@ public class FilterSelection extends JPanel implements INotifyable {
 			public void stateChanged(ChangeEvent arg0) {
 				System.out.println(sldrBPM.getValue());
 				model.setBPM(sldrBPM.getValue());
-				txtSpeed.setText("" + sldrBPM.getValue());
+				txtBPM.setText("" + sldrBPM.getValue());
 			}
 		});
+
+		lblThreshold = new JLabel("Threshold: ");
+		sldrThreshold = new JSlider(0, 255, 128);
 
 		btnPlay = new JButton("Play");
 		btnPlay.setBackground(Color.GREEN);
@@ -113,7 +102,7 @@ public class FilterSelection extends JPanel implements INotifyable {
 			public void actionPerformed(ActionEvent e) {
 				int speed = 200;
 				try {
-					speed = Integer.parseInt(txtSpeed.getText());
+					speed = Integer.parseInt(txtBPM.getText());
 				} catch (NumberFormatException e1) {
 
 				}
@@ -223,9 +212,9 @@ public class FilterSelection extends JPanel implements INotifyable {
 			}
 		});
 
-		this.add(lblSpeed);
+		this.add(lblBPM);
 		this.add(sldrBPM);
-		this.add(txtSpeed);
+		this.add(txtBPM);
 		this.add(btnPlay);
 		this.add(btnStop);
 		this.add(btnNone);
