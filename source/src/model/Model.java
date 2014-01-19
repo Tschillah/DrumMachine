@@ -123,7 +123,7 @@ public class Model {
 	 * Sets an image and afterwards divides and analyzes it.
 	 */
 	public void setImage(BufferedImage img) {
-		stopTactMachine();
+	//	stopTactMachine();
 		
 		if (img.getHeight() != 600 && img.getWidth() != 800) {
 			img = Scalr.resize(img, 800);
