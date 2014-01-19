@@ -9,6 +9,8 @@ import javax.imageio.ImageIO;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import org.imgscalr.Scalr;
+
 import strategies.IImageAnalyzer;
 import strategies.NullAnalyzer;
 import view.DrumPadButton;
@@ -39,15 +41,18 @@ public class Model {
 	private CamManager camManager;
 	private TactMachine tactMachine = null;
 	private Thread thread = null;
+	private Thread webcamThread = null;
+
 
 	public Model() {
 
 		sou = new SoundManager();
-		camManager = new CamManager();
+		camManager = new CamManager(this);
 
 		tactMachine = new TactMachine(this);
 		thread = new Thread(tactMachine);
-
+		webcamThread = new Thread(camManager);
+		
 		try {
 			image = ImageIO.read(new File("res/farben.jpg"));
 			// image = ImageIO.read(new File("res/flower.jpg"));
@@ -82,6 +87,25 @@ public class Model {
 			}
 		}
 	}
+	
+	public void startWebcamCapture() {
+		camManager.setRunning(true);
+		webcamThread = new Thread(camManager);
+		webcamThread.start();
+	}
+
+	public void stopWebcamCapture() {
+		if (webcamThread != null) {
+			camManager.terminate();
+
+			try {
+				webcamThread.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 
 	public int getColCount() {
 		return COLCOUNT;
@@ -92,6 +116,11 @@ public class Model {
 	 */
 	public void setImage(BufferedImage img) {
 		stopTactMachine();
+		
+		if (img.getHeight() != 600 && img.getWidth() != 800) {
+			img = Scalr.resize(img, 800);
+		}
+		
 		this.image = img;
 		divideImage();
 		analyzeImage();

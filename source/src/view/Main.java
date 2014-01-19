@@ -128,6 +128,9 @@ public class Main {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
+				
+				model.startWebcamCapture();
+/*
 				// Get image from webcam
 				BufferedImage camImage = model.getCurrentFrame();
 
@@ -138,6 +141,7 @@ public class Main {
 
 				// Set the image in the model
 				model.setImage(camImage);
+				*/
 			}
 		});
 
