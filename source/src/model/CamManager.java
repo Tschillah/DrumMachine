@@ -25,7 +25,7 @@ public class CamManager implements Runnable{
 	@Override
 	public void run() {
 		while (running) {
-			model.setImage(getCurrentFrame());
+			model.setImage(getCurrentFrame(), true);
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
@@ -41,5 +41,9 @@ public class CamManager implements Runnable{
 
 	public void setRunning(boolean running) {
 		this.running = running;
+	}
+	
+	public boolean getRunning() {
+		return running;
 	}
 }

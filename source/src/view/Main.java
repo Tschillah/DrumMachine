@@ -16,8 +16,6 @@ import javax.swing.JFrame;
 
 import model.Model;
 
-import org.imgscalr.Scalr;
-
 /**
  * Main class that starts the application and instantiates the model and the
  * view
@@ -102,16 +100,8 @@ public class Main {
 							BufferedImage newImage = ImageIO.read(new File(
 									filename));
 
-							// If this image is bigger than 800x600, we crop it
-							// to the correct size
-							if (newImage.getHeight() != 600
-									&& newImage.getWidth() != 800) {
-								newImage = Scalr.resize(newImage, 800);
-
-							}
-
 							// Set the image in the model
-							model.setImage(newImage);
+							model.setImage(newImage, false);
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
@@ -129,19 +119,7 @@ public class Main {
 			public void actionPerformed(ActionEvent arg0) {
 
 				
-				model.startWebcamCapture();
-/*
-				// Get image from webcam
-				BufferedImage camImage = model.getCurrentFrame();
-
-				if (camImage.getHeight() != 600 && camImage.getWidth() != 800) {
-					camImage = Scalr.resize(camImage, 800);
-
-				}
-
-				// Set the image in the model
-				model.setImage(camImage);
-				*/
+				model.toggleWebcamCapture();
 			}
 		});
 

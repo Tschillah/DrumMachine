@@ -91,6 +91,15 @@ public class Model {
 		}
 	}
 	
+	public void toggleWebcamCapture() {
+		if (camManager.getRunning()){
+			stopWebcamCapture();
+		} else {
+			startWebcamCapture();
+		}
+		
+	}
+	
 	public void startWebcamCapture() {
 		camManager.setRunning(true);
 		webcamThread = new Thread(camManager);
@@ -122,8 +131,12 @@ public class Model {
 	/**
 	 * Sets an image and afterwards divides and analyzes it.
 	 */
-	public void setImage(BufferedImage img) {
+	public void setImage(BufferedImage img, boolean webcam) {
 	//	stopTactMachine();
+		
+		if (!webcam){
+			stopWebcamCapture();
+		}
 		
 		if (img.getHeight() != 600 && img.getWidth() != 800) {
 			img = Scalr.resize(img, 800);
