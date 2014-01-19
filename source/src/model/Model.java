@@ -16,27 +16,28 @@ import strategies.NullAnalyzer;
 import view.DrumPadButton;
 import framework.INotifyable;
 
+/**
+ * Represents the business logic. Implemented as a singleton.
+ */
 public class Model {
 
+	// Instance which holds the model
 	private static Model instance = null;
 
-	private IImageAnalyzer imageAnalyzer;
-
+	// Observers
 	ArrayList<INotifyable> notifyables = new ArrayList<INotifyable>();
 
+	// Fixed drummachine settings
 	final int LINECOUNT = 6;
 	final int COLCOUNT = 16;
 	final int BLOCKCOUNT = LINECOUNT * COLCOUNT;
-	private BufferedImage image;
-	private DrumPadButton buttons[][] = new DrumPadButton[COLCOUNT][LINECOUNT];
 
-	// private String[] sampleLines = { "clave.wav", "perc7.wav", "perc3.wav",
-	// "snare1.wav", "snare2.wav", "snare3.wav" };
+	private DrumPadButton buttons[][] = new DrumPadButton[COLCOUNT][LINECOUNT];
 	private String[] sampleLines = { "cowbell1.wav", "cowbell2.wav",
 			"cowbell6.wav", "bongo10.wav", "kickdrum2.wav", "rattle2.wav" };
 
-	// private LinkedList<INotifyable> listeners = new
-	// LinkedList<INotifyable>();
+	private IImageAnalyzer imageAnalyzer;
+	private BufferedImage image;
 	private SoundManager sou;
 	private CamManager camManager;
 	private TactMachine tactMachine = null;
@@ -55,26 +56,29 @@ public class Model {
 		
 		try {
 			image = ImageIO.read(new File("res/farben.jpg"));
-			// image = ImageIO.read(new File("res/flower.jpg"));
-
 			imageAnalyzer = new NullAnalyzer(false);
 
-			// imageAnalyzer = new GrayScaleAnalyzer();
 			divideImage();
 			analyzeImage();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
+	/**
+	 * Starts a new thread within the tactMachine and sets the running flag to
+	 * true.
+	 */
 	public void startTactMachine() {
 		tactMachine.setRunning(true);
 		thread = new Thread(tactMachine);
 		thread.start();
 	}
 
+	/**
+	 * Sets the running flag of the tactMachine to false which will stop the
+	 * thread.
+	 */
 	public void stopTactMachine() {
 		if (thread != null) {
 			tactMachine.terminate();
@@ -82,7 +86,6 @@ public class Model {
 			try {
 				thread.join();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -107,12 +110,17 @@ public class Model {
 		}
 	}
 
+	/**
+	 * Returns the number of columns of the drumMachine.
+	 * 
+	 * @return
+	 */
 	public int getColCount() {
 		return COLCOUNT;
 	}
 
-	/*
-	 * Sets an image and afterwarts divides an analyzes it
+	/**
+	 * Sets an image and afterwards divides and analyzes it.
 	 */
 	public void setImage(BufferedImage img) {
 		stopTactMachine();
@@ -126,8 +134,9 @@ public class Model {
 		analyzeImage();
 	}
 
-	/*
-	 * Divides the image into smaller parts
+	/**
+	 * Divides the image into smaller parts based on the grid size, which is
+	 * defined by COLCOUNT and LINECOUNT.
 	 */
 	public void divideImage() {
 
@@ -155,8 +164,8 @@ public class Model {
 
 	}
 
-	/*
-	 * Analayzed all image parts with the analyzer which is currently set.
+	/**
+	 * Analyzes all image parts with the current analyzer strategy.
 	 */
 	public void analyzeImage() {
 		// send image blocks to analyzer
@@ -167,14 +176,31 @@ public class Model {
 		}
 	}
 
+	/**
+	 * Returns the width of a single cell in the grid.
+	 * 
+	 * @return
+	 */
 	public int getBlockWidth() {
 		return image.getWidth() / COLCOUNT;
 	}
 
+	/**
+	 * Returns the height of a single cell in the grid.
+	 * 
+	 * @return
+	 */
 	public int getBlockHeight() {
 		return image.getHeight() / LINECOUNT;
 	}
 
+	/**
+	 * Returns the JButton on the specified place of the grid.
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public DrumPadButton getButton(int x, int y) {
 		return buttons[x][y];
 	}
@@ -190,7 +216,11 @@ public class Model {
 		update();
 	}
 
-	// method which preserves access to this class
+	/**
+	 * Provides access to this class. Returns the model.
+	 * 
+	 * @return
+	 */
 	public static Model getInstance() {
 		if (instance == null) {
 			instance = new Model();
@@ -198,33 +228,29 @@ public class Model {
 		return instance;
 	}
 
+	/**
+	 * Returns the amount of rows in the grid.
+	 * 
+	 * @return
+	 */
 	public int getLineCount() {
 		return LINECOUNT;
 	}
 
+	/**
+	 * Returns the amount of columns in the grid
+	 * 
+	 * @return
+	 */
 	public int getColumnCount() {
 		return COLCOUNT;
 	}
 
-	/*
-	 * public void addModelChangeListener(INotifyable listener) {
-	 * listeners.add(listener); }
-	 * 
-	 * public void notifyListeners() { for (INotifyable listener : listeners) {
-	 * listener.update(); } }
-	 */
-	public boolean isFilterActive() {
-		return true;
-	}
-
 	/**
-	 * Fill SoundManager
+	 * Adds the activated samples from a column to the SoundManager and plays
+	 * them.
 	 */
 	public void buildSound(int column) {
-
-		/*
-		 * if (column > COLCOUNT - 1) { column = 0; }
-		 */
 
 		int count = -1;
 		sou.clear();
@@ -238,18 +264,13 @@ public class Model {
 					// " added");
 					count++;
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (UnsupportedAudioFileException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (LineUnavailableException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
 			}
-
 		}
 
 		if (count > -1) {
@@ -257,35 +278,22 @@ public class Model {
 				try {
 					sou.playSound(i);
 				} catch (UnsupportedAudioFileException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (LineUnavailableException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		}
-
-		/*
-		 * Timer timer = new Timer(500, null); timer.start();
-		 */
-
-		/*
-		 * try { Thread.sleep(500); } catch (InterruptedException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); }
-		 */
-
 	}
 
-	/*
-	 * Method to highlight column of currently played buttons
+	/**
+	 * Highlights the buttons of the given column.
 	 * 
-	 * @author Caroline, Marlene
 	 */
 	public void highlightActiveButtons(int col) {
 		int colOld = 0;
 
-		// vorgaengige col entfaerben
+		// Colorize antecendent column
 		if (col > 0) {
 			colOld = col - 1;
 		} else {
@@ -295,16 +303,14 @@ public class Model {
 			this.getButton(colOld, y).setUnhighlighted();
 		}
 
-		// aktuelle col einfaerben
+		// Colorize current column
 		for (int y = 0; y < LINECOUNT; y++) {
 			this.getButton(col, y).setHighlighted();
 		}
 	}
 
-	/*
-	 * Method to unhighlight all buttons
-	 * 
-	 * @author Caroline, Marlene
+	/**
+	 * Unhighlights all buttons.
 	 */
 	public void unhighlightAllButtons() {
 		for (int x = 0; x < COLCOUNT; x++) {
@@ -314,24 +320,47 @@ public class Model {
 		}
 	}
 
-	public void setSpeed(int miliseconds) {
-		tactMachine.setSpeed(miliseconds);
+	/**
+	 * Sets the beats per minute on the tactMachine.
+	 * 
+	 * @param bpm
+	 */
+	public void setBPM(int bpm) {
+		tactMachine.setSpeed(bpm);
 	}
 
+	/**
+	 * Returns true if the tactMachine is running. False when it is not.
+	 * 
+	 * @return
+	 */
 	public boolean isRunning() {
 		return tactMachine.isRunning();
 	}
 
-	public void register(INotifyable n) {
-		notifyables.add(n);
+	/**
+	 * Registers an observer to the model.
+	 * 
+	 * @param observer
+	 */
+	public void register(INotifyable observer) {
+		notifyables.add(observer);
 	}
 
+	/**
+	 * Calls the update method on every observer.
+	 */
 	public void update() {
-		for (INotifyable n : notifyables) {
-			n.update();
+		for (INotifyable observer : notifyables) {
+			observer.update();
 		}
 	}
 
+	/**
+	 * Returns a snapshot of the current webcam screen.
+	 * 
+	 * @return
+	 */
 	public BufferedImage getCurrentFrame() {
 		return camManager.getCurrentFrame();
 	}

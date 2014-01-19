@@ -4,12 +4,21 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 public class YUVAnalyzer implements IImageAnalyzer {
+	
+	int threshold;
+	
+	public YUVAnalyzer(){
+		this.threshold = 128;
+	}
+	
+	public YUVAnalyzer(int threshold){
+		this.threshold = threshold;
+	}
 
 	@Override
 	public boolean analyze(BufferedImage img) {
 		
 		int sum = 0;
-		final int TRESHOLD = 128;
 		
 		for (int w = 0; w < img.getWidth(); w++) {
 			for (int h = 0; h < img.getHeight(); h++) {
@@ -26,6 +35,6 @@ public class YUVAnalyzer implements IImageAnalyzer {
 			}
 		}
 
-		return !(sum/(img.getWidth()*img.getHeight()) < TRESHOLD);
+		return sum / (img.getWidth()*img.getHeight()) > threshold;
 	}
 }
