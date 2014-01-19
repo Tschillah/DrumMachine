@@ -10,12 +10,12 @@ public class ColorAnalyzer implements IImageAnalyzer{
 	
 	public ColorAnalyzer(){
 		this.color = Color.BLACK;
-		this.treshold = 64;
+		this.treshold = 128;
 	}
 
 	public ColorAnalyzer(Color c){
 		this.color = c;
-		this.treshold = 64;
+		this.treshold = 128;
 	}
 	
 	public ColorAnalyzer(Color c, int treshold){
@@ -26,32 +26,28 @@ public class ColorAnalyzer implements IImageAnalyzer{
 	@Override
 	public boolean analyze(BufferedImage img) {
 		
-		
 		int sum = 0;
-	//	final int TRESHOLD = 64;
-	//	final int TRESHOLD = 64;
-
 		
 		for (int w = 0; w < img.getWidth(); w++) {
 			for (int h = 0; h < img.getHeight(); h++) {
 				Color curColor = new Color(img.getRGB(w, h));
-				int r;
+				int pixel;
 				if (color == Color.RED){
-					r = curColor.getRed();
+					pixel = curColor.getRed();
 
 				} else if (color == Color.GREEN) {
-					r = curColor.getGreen();
+					pixel = curColor.getGreen();
 
 				} else {
-					r = curColor.getBlue();
+					pixel = curColor.getBlue();
 
 				}
 				
-				sum += r;				
+				sum += pixel;				
 			}
 		}
 
-		return !(sum/(img.getWidth()*img.getHeight()) < treshold);
+		return sum / (img.getWidth()*img.getHeight()) > treshold;
 		
 	}
 }
