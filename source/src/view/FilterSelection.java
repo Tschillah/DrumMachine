@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import model.Model;
 import strategies.ColorAnalyzer;
@@ -20,18 +22,19 @@ import strategies.RandomAnalyzer;
 import strategies.YUVAnalyzer;
 import framework.INotifyable;
 
-public class FilterSelection extends JPanel implements INotifyable{
+public class FilterSelection extends JPanel implements INotifyable {
 
 	/*
 	 * GUI part for selecitng the filterFilterSelectionFilterSelection
 	 */
 
 	Model model = Model.getInstance();
-	
+
 	// Controls
 	JLabel lblSpeed;
 	JLabel lblThreshold;
 	JTextField txtSpeed;
+	JSlider sldrBPM;
 	JSlider sldrThreshold;
 	JButton btnPlay;
 	JButton btnStop;
@@ -45,22 +48,31 @@ public class FilterSelection extends JPanel implements INotifyable{
 	JButton btnFilterRandomAnalyzer;
 	JButton btnFilterGrayScaleAnalyzer;
 	JButton btnFilterYUVAnalyzer;
-	
+
 	ArrayList<JButton> filterButtons = new ArrayList<JButton>();
 
 	public FilterSelection() {
 
 		model.register(this);
-		
-		lblSpeed = new JLabel("bpm: ");
 
+		lblSpeed = new JLabel("bpm: ");
+		sldrBPM = new JSlider(60, 800, 128);
 		txtSpeed = new JTextField();
 		txtSpeed.setPreferredSize(new Dimension(60, 20));
 		txtSpeed.setText("200");
-		
+
 		lblThreshold = new JLabel("Threshold: ");
-		
 		sldrThreshold = new JSlider(0, 255, 128);
+
+		sldrBPM.addChangeListener(new ChangeListener() {
+
+			@Override
+			public void stateChanged(ChangeEvent arg0) {
+				System.out.println(sldrBPM.getValue());
+				model.setBPM(sldrBPM.getValue());
+				txtSpeed.setText("" + sldrBPM.getValue());
+			}
+		});
 
 		btnPlay = new JButton("Play");
 		btnPlay.setBackground(Color.GREEN);
@@ -123,7 +135,8 @@ public class FilterSelection extends JPanel implements INotifyable{
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				model.setFilter(new ColorAnalyzer(Color.RED, sldrThreshold.getValue()));
+				model.setFilter(new ColorAnalyzer(Color.RED, sldrThreshold
+						.getValue()));
 				btnFilterRedColorAnalyzer.setEnabled(false);
 			}
 		});
@@ -133,7 +146,8 @@ public class FilterSelection extends JPanel implements INotifyable{
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				model.setFilter(new ColorAnalyzer(Color.GREEN, sldrThreshold.getValue()));
+				model.setFilter(new ColorAnalyzer(Color.GREEN, sldrThreshold
+						.getValue()));
 				btnFilterGreenColorAnalyzer.setEnabled(false);
 			}
 		});
@@ -143,7 +157,8 @@ public class FilterSelection extends JPanel implements INotifyable{
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				model.setFilter(new ColorAnalyzer(Color.BLUE, sldrThreshold.getValue()));
+				model.setFilter(new ColorAnalyzer(Color.BLUE, sldrThreshold
+						.getValue()));
 				btnFilterBlueColorAnalyzer.setEnabled(false);
 			}
 		});
@@ -178,6 +193,7 @@ public class FilterSelection extends JPanel implements INotifyable{
 		});
 
 		this.add(lblSpeed);
+		this.add(sldrBPM);
 		this.add(txtSpeed);
 		this.add(btnPlay);
 		this.add(btnStop);
@@ -192,7 +208,7 @@ public class FilterSelection extends JPanel implements INotifyable{
 
 		this.add(btnFilterRedColorAnalyzer);
 		filterButtons.add(btnFilterRedColorAnalyzer);
-		
+
 		this.add(btnFilterGreenColorAnalyzer);
 		filterButtons.add(btnFilterGreenColorAnalyzer);
 
@@ -204,15 +220,14 @@ public class FilterSelection extends JPanel implements INotifyable{
 
 		this.add(btnFilterYUVAnalyzer);
 		filterButtons.add(btnFilterYUVAnalyzer);
-		
+
 		this.add(lblThreshold);
 		this.add(sldrThreshold);
 
-
 	}
-	
-	public void toggleFilter(){
-		
+
+	public void toggleFilter() {
+
 	}
 
 	@Override
@@ -220,6 +235,6 @@ public class FilterSelection extends JPanel implements INotifyable{
 		for (JButton b : filterButtons) {
 			b.setEnabled(true);
 		}
-		
+
 	}
 }
