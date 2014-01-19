@@ -29,7 +29,9 @@ public class FilterSelection extends JPanel implements INotifyable{
 	
 	// Controls
 	JLabel lblSpeed;
+	JLabel lblTreshold;
 	JTextField txtSpeed;
+	JTextField txtTreshold;
 	JButton btnPlay;
 	JButton btnStop;
 
@@ -54,6 +56,12 @@ public class FilterSelection extends JPanel implements INotifyable{
 		txtSpeed = new JTextField();
 		txtSpeed.setPreferredSize(new Dimension(60, 20));
 		txtSpeed.setText("200");
+		
+		lblTreshold = new JLabel("Treshold: ");
+		
+		txtTreshold = new JTextField();
+		txtTreshold.setPreferredSize(new Dimension(60, 20));
+		txtTreshold.setText("128");
 
 		btnPlay = new JButton("Play");
 		btnPlay.setBackground(Color.GREEN);
@@ -111,32 +119,32 @@ public class FilterSelection extends JPanel implements INotifyable{
 			}
 		});
 
-		btnFilterRedColorAnalyzer = new JButton("Red");
+		btnFilterRedColorAnalyzer = new JButton("R");
 		btnFilterRedColorAnalyzer.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				model.setFilter(new ColorAnalyzer(Color.RED));
+				model.setFilter(new ColorAnalyzer(Color.RED, Integer.parseInt(txtTreshold.getText())));
 				btnFilterRedColorAnalyzer.setEnabled(false);
 			}
 		});
 
-		btnFilterGreenColorAnalyzer = new JButton("Green");
+		btnFilterGreenColorAnalyzer = new JButton("G");
 		btnFilterGreenColorAnalyzer.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				model.setFilter(new ColorAnalyzer(Color.GREEN));
+				model.setFilter(new ColorAnalyzer(Color.GREEN, Integer.parseInt(txtTreshold.getText())));
 				btnFilterGreenColorAnalyzer.setEnabled(false);
 			}
 		});
 
-		btnFilterBlueColorAnalyzer = new JButton("Blue");
+		btnFilterBlueColorAnalyzer = new JButton("B");
 		btnFilterBlueColorAnalyzer.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				model.setFilter(new ColorAnalyzer(Color.BLUE));
+				model.setFilter(new ColorAnalyzer(Color.BLUE, Integer.parseInt(txtTreshold.getText())));
 				btnFilterBlueColorAnalyzer.setEnabled(false);
 			}
 		});
@@ -150,12 +158,12 @@ public class FilterSelection extends JPanel implements INotifyable{
 			}
 		});
 
-		btnFilterGrayScaleAnalyzer = new JButton("Grayscale");
+		btnFilterGrayScaleAnalyzer = new JButton("B/W");
 		btnFilterGrayScaleAnalyzer.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				model.setFilter(new GrayScaleAnalyzer());
+				model.setFilter(new GrayScaleAnalyzer(Integer.parseInt(txtTreshold.getText())));
 				btnFilterGrayScaleAnalyzer.setEnabled(false);
 			}
 		});
@@ -195,8 +203,11 @@ public class FilterSelection extends JPanel implements INotifyable{
 		this.add(btnFilterGrayScaleAnalyzer);
 		filterButtons.add(btnFilterGrayScaleAnalyzer);
 
-		this.add(btnFilterYUVAnalyzer);
-		filterButtons.add(btnFilterYUVAnalyzer);
+		//this.add(btnFilterYUVAnalyzer);
+		//filterButtons.add(btnFilterYUVAnalyzer);
+		
+		this.add(lblTreshold);
+		this.add(txtTreshold);
 
 
 	}
