@@ -145,6 +145,8 @@ public class FilterSelection extends JPanel implements INotifyable {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				model.setFilter(new RandomAnalyzer());
+				sldrThreshold.setEnabled(false);
+				txtTreshold.setEditable(false);
 			}
 		});
 
@@ -208,6 +210,8 @@ public class FilterSelection extends JPanel implements INotifyable {
 		for (JButton b : filterButtons) {
 			b.setEnabled(true);
 		}
+		sldrThreshold.setEnabled(true);
+		txtTreshold.setEnabled(true);
 
 	}
 }

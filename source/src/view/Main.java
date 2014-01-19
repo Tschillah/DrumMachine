@@ -88,7 +88,7 @@ public class Main {
 
 		// Instantiate the filter selection and add the filter selection to the
 		// frame
-		FilterSelection filterSelection = new FilterSelection();
+		final FilterSelection filterSelection = new FilterSelection();
 		rowAnalyzer.add(filterSelection, BorderLayout.NORTH);
 
 		// Instantiate the file chooser to select images and add it to the frame
@@ -111,6 +111,8 @@ public class Main {
 							BufferedImage newImage = ImageIO.read(new File(
 									filename));
 
+							
+							
 							// Set the image in the model
 							model.setImage(newImage, false);
 						} catch (IOException e1) {
@@ -133,8 +135,11 @@ public class Main {
 				model.toggleWebcamCapture();
 				if (captureWebcam.getText() == "Start Webcam Capture"){
 					captureWebcam.setText("Stop Webcam Capture");
+					filterSelection.btnFilterRandomAnalyzer.setEnabled(false);
 				} else {
 					captureWebcam.setText("Start Webcam Capture");		
+					filterSelection.btnFilterRandomAnalyzer.setEnabled(true);
+
 				}
 			}
 		});
