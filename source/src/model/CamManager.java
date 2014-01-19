@@ -16,7 +16,7 @@ public class CamManager implements Runnable{
 	private boolean running;
 	
 	// Sets how many captures per second the webcam should take
-	private static final long capturesPerSecond = 10;
+	private static final long capturesPerSecond = 20;
 
 
 	public CamManager(Model model) {
@@ -24,7 +24,7 @@ public class CamManager implements Runnable{
 		
 		// Opens the webcam to take captues
 		this.webcam = Webcam.getDefault();
-		webcam.open();
+		webcam.open(true);
 	}
 
 	/**

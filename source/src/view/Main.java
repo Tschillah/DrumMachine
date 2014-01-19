@@ -133,10 +133,8 @@ public class Main {
 				model.toggleWebcamCapture();
 				if (captureWebcam.getText() == "Start Webcam Capture") {
 					captureWebcam.setText("Stop Webcam Capture");
-					filterSelection.btnFilterRandomAnalyzer.setEnabled(false);
 				} else {
 					captureWebcam.setText("Start Webcam Capture");		
-					filterSelection.btnFilterRandomAnalyzer.setEnabled(true);
 
 				}
 			}

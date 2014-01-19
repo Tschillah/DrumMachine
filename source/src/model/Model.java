@@ -145,19 +145,24 @@ public class Model {
 	 * Sets an image and afterwards divides and analyzes it.
 	 */
 	public void setImage(BufferedImage img, boolean webcam) {
-		// stopTactMachine();
 
+		// if the image does not come from the webcam, we stop the web cam capturing
 		if (!webcam) {
 			stopWebcamCapture();
 		}
+		
+		if (img != null){
+			
+			// resize the image if necessary
+			if (img.getHeight() != 600 && img.getWidth() != 800) {
+				img = Scalr.resize(img, 800);
+			}
 
-		if (img.getHeight() != 600 && img.getWidth() != 800) {
-			img = Scalr.resize(img, 800);
+			this.image = img;
+			divideImage();
+			analyzeImage();	
 		}
 
-		this.image = img;
-		divideImage();
-		analyzeImage();
 	}
 
 	/**
