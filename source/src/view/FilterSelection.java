@@ -68,7 +68,7 @@ public class FilterSelection extends JPanel implements INotifyable{
 
 				}
 
-				model.setSpeed(speed);
+				model.setBPM(speed);
 				model.stopTactMachine();
 				model.startTactMachine();
 				btnStop.setEnabled(true);
