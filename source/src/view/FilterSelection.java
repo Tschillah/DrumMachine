@@ -77,6 +77,7 @@ public class FilterSelection extends JPanel implements INotifyable {
 
 					if (bpm >= 60 && bpm <= 800) {
 						model.setBPM(bpm);
+						sldrBPM.setValue(bpm);
 					} else {
 						JOptionPane
 								.showMessageDialog(
