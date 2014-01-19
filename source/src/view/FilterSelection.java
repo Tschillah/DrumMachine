@@ -4,6 +4,7 @@ import helpers.Parser;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -170,34 +171,41 @@ public class FilterSelection extends JPanel implements INotifyable {
 			}
 		});
 
-
-		this.add(btnNone);
+		GridLayout buttonLayout = new GridLayout(2,1);
+		this.setLayout(buttonLayout);
+		
+		JPanel row1 = new JPanel();
+		JPanel row2 = new JPanel();
+		this.add(row1);
+		this.add(row2);
+		
+		row1.add(btnNone);
 		filterButtons.add(btnNone);
 
-		this.add(btnAll);
+		row1.add(btnAll);
 		filterButtons.add(btnAll);
 
-		this.add(btnFilterRandomAnalyzer);
+		row1.add(btnFilterRandomAnalyzer);
 		filterButtons.add(btnFilterRandomAnalyzer);
 
-		this.add(btnFilterRedColorAnalyzer);
+		row1.add(btnFilterRedColorAnalyzer);
 		filterButtons.add(btnFilterRedColorAnalyzer);
 
-		this.add(btnFilterGreenColorAnalyzer);
+		row1.add(btnFilterGreenColorAnalyzer);
 		filterButtons.add(btnFilterGreenColorAnalyzer);
 
-		this.add(btnFilterBlueColorAnalyzer);
+		row1.add(btnFilterBlueColorAnalyzer);
 		filterButtons.add(btnFilterBlueColorAnalyzer);
 
-		this.add(btnFilterGrayScaleAnalyzer);
+		row1.add(btnFilterGrayScaleAnalyzer);
 		filterButtons.add(btnFilterGrayScaleAnalyzer);
 
-		this.add(btnFilterYUVAnalyzer);
+		row1.add(btnFilterYUVAnalyzer);
 		filterButtons.add(btnFilterYUVAnalyzer);
 
-		this.add(lblThreshold);
-		this.add(sldrThreshold);
-		this.add(txtTreshold);
+		row2.add(lblThreshold);
+		row2.add(sldrThreshold);
+		row2.add(txtTreshold);
 
 	}
 
