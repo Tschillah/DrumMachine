@@ -5,14 +5,14 @@ import java.awt.image.BufferedImage;
 
 public class GrayScaleAnalyzer implements IImageAnalyzer {
 	
-	int treshold;
+	int threshold;
 	
 	public GrayScaleAnalyzer(){
-		this.treshold = 128;
+		this.threshold = 128;
 	}
 	
-	public GrayScaleAnalyzer(int treshold){
-		this.treshold = treshold;
+	public GrayScaleAnalyzer(int threshold){
+		this.threshold = threshold;
 	}
 
 	@Override
@@ -31,6 +31,6 @@ public class GrayScaleAnalyzer implements IImageAnalyzer {
 			}
 		}
 
-		return sum / (img.getWidth()*img.getHeight()) > treshold;
+		return sum / (img.getWidth()*img.getHeight()) > threshold;
 	}
 }

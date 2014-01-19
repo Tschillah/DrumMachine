@@ -5,14 +5,14 @@ import java.awt.image.BufferedImage;
 
 public class YUVAnalyzer implements IImageAnalyzer {
 	
-	int treshold;
+	int threshold;
 	
 	public YUVAnalyzer(){
-		this.treshold = 128;
+		this.threshold = 128;
 	}
 	
-	public YUVAnalyzer(int treshold){
-		this.treshold = treshold;
+	public YUVAnalyzer(int threshold){
+		this.threshold = threshold;
 	}
 
 	@Override
@@ -35,6 +35,6 @@ public class YUVAnalyzer implements IImageAnalyzer {
 			}
 		}
 
-		return sum / (img.getWidth()*img.getHeight()) > treshold;
+		return sum / (img.getWidth()*img.getHeight()) > threshold;
 	}
 }

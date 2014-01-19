@@ -6,21 +6,21 @@ import java.awt.image.BufferedImage;
 public class ColorAnalyzer implements IImageAnalyzer{
 
 	Color color;
-	int treshold;
+	int threshold;
 	
 	public ColorAnalyzer(){
 		this.color = Color.BLACK;
-		this.treshold = 128;
+		this.threshold = 128;
 	}
 
 	public ColorAnalyzer(Color c){
 		this.color = c;
-		this.treshold = 128;
+		this.threshold = 128;
 	}
 	
-	public ColorAnalyzer(Color c, int treshold){
+	public ColorAnalyzer(Color c, int threshold){
 		this.color = c;
-		this.treshold = treshold;
+		this.threshold = threshold;
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class ColorAnalyzer implements IImageAnalyzer{
 			}
 		}
 
-		return sum / (img.getWidth()*img.getHeight()) > treshold;
+		return sum / (img.getWidth()*img.getHeight()) > threshold;
 		
 	}
 }
