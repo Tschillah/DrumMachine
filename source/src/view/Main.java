@@ -66,7 +66,7 @@ public class Main {
 		// Instantiate frame, set title/size/closeoperation/layout
 		frame = new JFrame();
 		frame.setTitle("ecp - Drum Machine");
-		frame.setBounds(100, 0, 1100, 680);
+		frame.setBounds(100, 0, 1200, 680);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 
