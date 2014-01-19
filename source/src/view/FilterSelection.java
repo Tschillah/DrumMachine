@@ -1,5 +1,7 @@
 package view;
 
+import helpers.Parser;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -8,6 +10,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
@@ -63,6 +66,33 @@ public class FilterSelection extends JPanel implements INotifyable {
 
 		lblThreshold = new JLabel("Threshold: ");
 		sldrThreshold = new JSlider(0, 255, 128);
+
+		txtSpeed.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int bpm;
+				if (Parser.tryParseInt(txtSpeed.getText())) {
+					bpm = Integer.parseInt(txtSpeed.getText());
+
+					if (bpm >= 60 && bpm <= 800) {
+						model.setBPM(bpm);
+					} else {
+						JOptionPane
+								.showMessageDialog(
+										null,
+										"Error: Please enter a number between 60 and 800",
+										"Error Massage",
+										JOptionPane.ERROR_MESSAGE);
+					}
+				} else {
+					JOptionPane.showMessageDialog(null,
+							"Error: Please enter a number", "Error Massage",
+							JOptionPane.ERROR_MESSAGE);
+				}
+
+			}
+		});
 
 		sldrBPM.addChangeListener(new ChangeListener() {
 
