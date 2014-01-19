@@ -250,7 +250,6 @@ public class Model {
 	public void setThreshold(int threshold) {
 		this.imageAnalyzer.setTeshold(threshold);
 		analyzeImage();
-		update();
 	}
 
 	/**

@@ -94,6 +94,8 @@ public class FilterSelection extends JPanel implements INotifyable {
 			public void actionPerformed(ActionEvent arg0) {
 				model.setFilter(new NullAnalyzer(false));
 				btnNone.setEnabled(false);
+				sldrThreshold.setEnabled(false);
+				txtTreshold.setEnabled(false);
 			}
 		});
 
@@ -104,6 +106,8 @@ public class FilterSelection extends JPanel implements INotifyable {
 			public void actionPerformed(ActionEvent arg0) {
 				model.setFilter(new NullAnalyzer(true));
 				btnAll.setEnabled(false);
+				sldrThreshold.setEnabled(false);
+				txtTreshold.setEnabled(false);
 			}
 		});
 
@@ -147,7 +151,7 @@ public class FilterSelection extends JPanel implements INotifyable {
 			public void actionPerformed(ActionEvent arg0) {
 				model.setFilter(new RandomAnalyzer());
 				sldrThreshold.setEnabled(false);
-				txtTreshold.setEditable(false);
+				txtTreshold.setEnabled(false);
 			}
 		});
 
