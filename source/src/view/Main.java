@@ -72,13 +72,12 @@ public class Main {
 		Box rowImageSource = Box.createHorizontalBox();
 		Box rowBeatControls = Box.createHorizontalBox();
 		Box rowAnalyzer = Box.createHorizontalBox();
-		
-		
+
 		// Instantiate the filter selection and add the filter selection to the
 		// frame
 		BeatControls beatControls = new BeatControls();
 		rowBeatControls.add(beatControls);
-		
+
 		// Get the model instance
 		final Model model = Model.getInstance();
 
@@ -129,20 +128,27 @@ public class Main {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
-				
 				model.toggleWebcamCapture();
-				if (captureWebcam.getText() == "Start Webcam Capture"){
+				if (captureWebcam.getText() == "Start Webcam Capture") {
 					captureWebcam.setText("Stop Webcam Capture");
 				} else {
-					captureWebcam.setText("Start Webcam Capture");		
+					captureWebcam.setText("Start Webcam Capture");
 				}
+			}
+		});
+
+		final JButton captureWebcamFrame = new JButton("Take Webcam Snapshot");
+		captureWebcamFrame.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				model.takeWebcamSnapshot();
 			}
 		});
 
 		rowImageSource.add(openFileChooser);
 		rowImageSource.add(captureWebcam);
-		
-
+		rowImageSource.add(captureWebcamFrame);
 
 		Box topControls = Box.createVerticalBox();
 		topControls.add(rowImageSource);
@@ -152,5 +158,4 @@ public class Main {
 		frame.add(topControls, BorderLayout.NORTH);
 
 	}
-
 }

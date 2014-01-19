@@ -128,6 +128,10 @@ public class Model {
 		}
 	}
 
+	public void takeWebcamSnapshot() {
+		setImage(camManager.getCurrentFrame(), false);
+	}
+
 	/**
 	 * Returns the number of columns of the drumMachine.
 	 * 
