@@ -146,13 +146,14 @@ public class Model {
 	 */
 	public void setImage(BufferedImage img, boolean webcam) {
 
-		// if the image does not come from the webcam, we stop the web cam capturing
+		// if the image does not come from the webcam, we stop the web cam
+		// capturing
 		if (!webcam) {
 			stopWebcamCapture();
 		}
-		
-		if (img != null){
-			
+
+		if (img != null) {
+
 			// resize the image if necessary
 			if (img.getHeight() != 600 && img.getWidth() != 800) {
 				img = Scalr.resize(img, 800);
@@ -160,7 +161,7 @@ public class Model {
 
 			this.image = img;
 			divideImage();
-			analyzeImage();	
+			analyzeImage();
 		}
 
 	}

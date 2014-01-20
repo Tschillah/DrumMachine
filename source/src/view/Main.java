@@ -90,6 +90,25 @@ public class Main {
 		final FilterSelection filterSelection = new FilterSelection();
 		rowAnalyzer.add(filterSelection, BorderLayout.NORTH);
 
+		// Initiate the button which selects the default image
+		final JButton defaultPic = new JButton("Default Image");
+		defaultPic.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					BufferedImage newImage = ImageIO.read(new File(
+							"res/farben.jpg"));
+
+					// Set the image in the model
+					model.setImage(newImage, false);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+
 		// Instantiate the file chooser to select images and add it to the frame
 		final JFileChooser fileChooser = new JFileChooser();
 		JButton openFileChooser = new JButton("Select Image");
@@ -110,8 +129,6 @@ public class Main {
 							BufferedImage newImage = ImageIO.read(new File(
 									filename));
 
-							
-							
 							// Set the image in the model
 							model.setImage(newImage, false);
 						} catch (IOException e1) {
@@ -134,7 +151,7 @@ public class Main {
 				if (captureWebcam.getText() == "Start Webcam Capture") {
 					captureWebcam.setText("Stop Webcam Capture");
 				} else {
-					captureWebcam.setText("Start Webcam Capture");		
+					captureWebcam.setText("Start Webcam Capture");
 
 				}
 			}
@@ -149,6 +166,7 @@ public class Main {
 			}
 		});
 
+		rowImageSource.add(defaultPic);
 		rowImageSource.add(openFileChooser);
 		rowImageSource.add(captureWebcam);
 		rowImageSource.add(captureWebcamFrame);
